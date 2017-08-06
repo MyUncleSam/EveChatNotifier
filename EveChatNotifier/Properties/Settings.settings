@@ -1,0 +1,27 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="EveChatNotifier.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="SoundFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="EveLogFolder" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">%DOCUMENTS%\EVE\logs\Chatlogs</Value>
+    </Setting>
+    <Setting Name="ChatEntryRegex" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">\[(?&lt;senddate&gt;(.+))\](?&lt;sender&gt;(.*))\&gt;(?&lt;text&gt;(.*))</Value>
+    </Setting>
+    <Setting Name="UseRegex" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="FileCheckInterval" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="NotifyKeywords" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">@all,@enemy</Value>
+    </Setting>
+    <Setting Name="ShowNotification" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
