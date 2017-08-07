@@ -10,6 +10,7 @@ using System.Text;
 using System.Windows.Forms;
 using NAudio;
 using NAudio.Wave;
+using Tulpep.NotificationWindow;
 
 namespace EveChatNotifier
 {
@@ -21,6 +22,7 @@ namespace EveChatNotifier
         private bool firstShown = true;
         private static bool isPlaying = false;
         private DateTime lastNotified = DateTime.Now;
+        private PopupNotifier Notifier = new PopupNotifier();
 
         public FormMain()
         {
@@ -32,6 +34,24 @@ namespace EveChatNotifier
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
             }
+
+            // popup notifier settings
+            Notifier.IsRightToLeft = false;
+            Notifier.ShowCloseButton = true;
+            Notifier.ShowGrip = false;
+            Notifier.Image = Properties.Resources.eve_logo_landing2;
+
+            Notifier.Delay = 5000;
+            Notifier.AnimationDuration = 500;
+
+            Notifier.BodyColor = Color.Black;
+            Notifier.BorderColor = Color.Red;
+            Notifier.ContentColor = Color.Orange;
+            Notifier.ContentHoverColor = Color.Orange;
+            Notifier.HeaderColor = Color.White;
+            Notifier.TitleColor = Color.LightGray;
+            
+            Notifier.Click += Notifier_Click;
 
             Logging.WriteLine("Starting chat notifier.");
 
@@ -134,8 +154,25 @@ namespace EveChatNotifier
                 // if notification is needed
                 if (needsNotify) // isPlaying is managing the notification using sound (only one at a time)
                 {
-                    lastNotified = DateTime.Now;
                     Logging.WriteLine(string.Format("Notify for chat message of '{0}' in '{1}': {2}", le.Sender, curLog.LogInfo.ChannelName, le.Text));
+
+                    if (string.IsNullOrWhiteSpace(Properties.Settings.Default.SoundFilePath) || Properties.Settings.Default.ShowNotification)
+                    {
+                        if ((DateTime.Now - lastNotified).TotalSeconds > 1)
+                        {
+                            lastNotified = DateTime.Now;
+                            // send notification
+                            //notifyIcon.ShowBalloonTip(10000, "[EVE] chat notification", string.Format("[{0}] {1}: {2}", curLog.LogInfo.ChannelName, le.Sender, le.Text), ToolTipIcon.Info);
+
+                            
+
+                            Notifier.TitleText = string.Format("{0} in '{1}'", le.Sender, curLog.LogInfo.ChannelName);
+                            Notifier.ContentText = le.Text;
+                            
+
+                            Notifier.Popup();
+                        }
+                    }
 
                     // send sound alert
                     if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.SoundFilePath))
@@ -163,18 +200,18 @@ namespace EveChatNotifier
                             Properties.Settings.Default.Reload();
                         }
                     }
-
-                    if(string.IsNullOrWhiteSpace(Properties.Settings.Default.SoundFilePath) || Properties.Settings.Default.ShowNotification)
-                    {
-                        if((DateTime.Now - lastNotified).TotalSeconds > 1)
-                        {
-                            lastNotified = DateTime.Now;
-                            // send notification
-                            notifyIcon.ShowBalloonTip(10000, "[EVE] chat notification", string.Format("[{0}] {1}: {2}", curLog.LogInfo.ChannelName, le.Sender, le.Text), ToolTipIcon.Info);
-                        }
-                    }
                 }
             }
+        }
+
+        private void Notifier_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                PopupNotifier pn = (PopupNotifier)sender;
+                pn.Hide();
+            }
+            catch { }
         }
 
         private void Wp_PlaybackStopped(object sender, NAudio.Wave.StoppedEventArgs e)
@@ -197,18 +234,29 @@ namespace EveChatNotifier
         {
             if(this.WindowState == FormWindowState.Minimized)
             {
-                notifyIcon.Visible = true;
+                //notifyIcon.Visible = true;
                 this.Hide();
             }
             else
             {
-                notifyIcon.Visible = false;
+                //notifyIcon.Visible = false;
             }
         }
 
         private void notifyIcon_DoubleClick(object sender, EventArgs e)
         {
             this.Show();
+            try
+            {
+                this.WindowState = FormWindowState.Normal;
+            }
+            catch { }
+            try
+            {
+                this.Focus();
+            }
+            catch { }
+
             //this.Focus();
             //this.TopMost = true;
             //this.TopMost = false;
