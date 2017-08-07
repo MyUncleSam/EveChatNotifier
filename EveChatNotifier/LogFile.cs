@@ -66,7 +66,7 @@ namespace EveChatNotifier
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(string.Format("Unable to pare log file:{0}{1}", Environment.NewLine, ex.ToString()));
+                Logging.WriteLine(string.Format("Unable to pare log file:{0}{1}", Environment.NewLine, ex.ToString()));
             }
 
             t.Start();

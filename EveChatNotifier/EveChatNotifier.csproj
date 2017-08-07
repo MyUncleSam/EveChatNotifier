@@ -57,6 +57,7 @@
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="LogFile.cs" />
+    <Compile Include="Logging.cs" />
     <Compile Include="LogHeaderReader.cs" />
     <Compile Include="LogReader.cs" />
     <Compile Include="Program.cs" />

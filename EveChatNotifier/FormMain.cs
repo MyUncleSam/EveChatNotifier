@@ -20,9 +20,21 @@ namespace EveChatNotifier
         private List<LogFile> _LogFiles = new List<LogFile>();
         private bool firstShown = true;
         private static bool isPlaying = false;
+        private DateTime lastNotified = DateTime.Now;
 
         public FormMain()
         {
+            // properties upgrade logic
+            if(Properties.Settings.Default.NeedsUpgrade)
+            {
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.NeedsUpgrade = false;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            }
+
+            Logging.WriteLine("Starting chat notifier.");
+
             InitializeComponent();
 
             // get path to watch
@@ -68,11 +80,13 @@ namespace EveChatNotifier
                     toAdd.NewChatLines += NewChatLines;
 
                     _LogFiles.Add(toAdd);
+
+                    Logging.WriteLine(string.Format("Watching new log file: {0}", curLogFile));
                 }
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(string.Format("Error getting log files:{0}{1}", Environment.NewLine, ex.ToString()));
+                Logging.WriteLine(string.Format("Error getting log files:{0}{1}", Environment.NewLine, ex.ToString()));
             }
 
             t.Start();
@@ -118,15 +132,16 @@ namespace EveChatNotifier
                 }
 
                 // if notification is needed
-                if (needsNotify)
+                if (needsNotify) // isPlaying is managing the notification using sound (only one at a time)
                 {
+                    lastNotified = DateTime.Now;
+                    Logging.WriteLine(string.Format("Notify for chat message of '{0}' in '{1}': {2}", le.Sender, curLog.LogInfo.ChannelName, le.Text));
+
                     // send sound alert
                     if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.SoundFilePath))
                     {
                         try
                         {
-                            // notifications can only be played once
-                            // this avoids that using multiple characters in the same channels can fire the sound playback
                             if(!isPlaying)
                             {
                                 // try playing the file
@@ -138,8 +153,10 @@ namespace EveChatNotifier
                                 wp.Play();
                             }
                         }
-                        catch
+                        catch (Exception ex)
                         {
+                            Logging.WriteLine(string.Format("Unable to play sound file '{0}' - removing sound file:{1}{2}", Properties.Settings.Default.SoundFilePath, Environment.NewLine, ex.ToString()));
+
                             // fallback to windows sounds if we are unable to play the given sound file
                             Properties.Settings.Default.SoundFilePath = null;
                             Properties.Settings.Default.Save();
@@ -149,8 +166,12 @@ namespace EveChatNotifier
 
                     if(string.IsNullOrWhiteSpace(Properties.Settings.Default.SoundFilePath) || Properties.Settings.Default.ShowNotification)
                     {
-                        // send notification
-                        notifyIcon.ShowBalloonTip(7500, "[EVE] chat notification", string.Format("[{0}] {1}: {2}", curLog.LogInfo.ChannelName, le.Sender, le.Text), ToolTipIcon.Info);
+                        if((DateTime.Now - lastNotified).TotalSeconds > 1)
+                        {
+                            lastNotified = DateTime.Now;
+                            // send notification
+                            notifyIcon.ShowBalloonTip(10000, "[EVE] chat notification", string.Format("[{0}] {1}: {2}", curLog.LogInfo.ChannelName, le.Sender, le.Text), ToolTipIcon.Info);
+                        }
                     }
                 }
             }
