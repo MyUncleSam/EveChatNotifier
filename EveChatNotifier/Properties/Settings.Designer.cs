@@ -118,5 +118,14 @@ namespace EveChatNotifier.Properties {
                 return ((bool)(this["EnableLogging"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        public int MaxAgeForWatchingLogs {
+            get {
+                return ((int)(this["MaxAgeForWatchingLogs"]));
+            }
+        }
     }
 }

@@ -70,7 +70,7 @@ namespace EveChatNotifier
                     }
 
                     // only add logfiles which are last modified in the past X hour
-                    if ((DateTime.Now - System.IO.File.GetLastWriteTime(curLogFile)).TotalHours > 24)
+                    if ((DateTime.Now - System.IO.File.GetLastWriteTime(curLogFile)).TotalMinutes > Properties.Settings.Default.MaxAgeForWatchingLogs)
                     {
                         continue;
                     }
