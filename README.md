@@ -136,13 +136,13 @@ See release page of github project: [https://github.com/MyUncleSam/EveChatNotifi
 
 ### License
 
-This software is licensed underthe MIT license: [https://choosealicense.com/licenses/mit/](https://choosealicense.com/licenses/mit/)
+Apache License 2.0: [https://choosealicense.com/licenses/apache-2.0/](https://choosealicense.com/licenses/apache-2.0/)
 
 ### Warranty
 
 I, the author, am not responsible in any cases for this software. But as always it is written without any advertising, malware or any other parts which are not needed for this functionality. This software is also not sending any information to anyone.
 
-If you don't trust me you can ask for source code. Please take a look into the contact information of the domain.
+If you don't trust me you can take a look into the source code.
 
 ## Changelog
 
