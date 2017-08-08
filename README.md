@@ -147,5 +147,3 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ## Changelog
 
 [https://github.com/MyUncleSam/EveChatNotifier/commits/master](https://github.com/MyUncleSam/EveChatNotifier/commits/master)
-
-<div class="pcl_tooltip_box" style="display: none;">Image already added</div>
