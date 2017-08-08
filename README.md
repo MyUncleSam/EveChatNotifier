@@ -1,12 +1,8 @@
-## Basic information
+## Basic information / FAQ
 
-This tool is not interacting in any way with eve online. It is just monitoring and reading log files written by the eve online client.
-
-It is not and cannot detect if enemies or bad persons enter the current system.
-
-It cannot notify you if the local changes
-
-What it does: if the pilot name is in any chat text it plays a sound (optional) and prints some notification about that.
+- This tool is not interacting in any way with eve online directly. It is just monitoring and reading log files written by the eve online client.
+- It is not and cannot detect if enemies or bad persons enter the current system.
+- It can only notify you on chat messages - there is no possibility to get notified if you change e.g. the system or someone enters your system.
 
 ## What it does
 
@@ -18,11 +14,11 @@ It is always going to notify you with the default windows notification method in
 
 To modify the settings you have to press twice on the program icon next to your clock:
 
-![](https://book.esn.space/uploads/images/gallery/2017-08-Aug/scaled-840-0/image-1502048228262.png)
+![](https://raw.githubusercontent.com/MyUncleSam/EveChatNotifier/master/EveChatNotifier/Screenshots/NotifyIcon.png)
 
 And how does the Notification looks like?
 
-![](https://book.esn.space/uploads/images/gallery/2017-08-Aug/scaled-840-0/image-1502141592601.png)
+![](https://raw.githubusercontent.com/MyUncleSam/EveChatNotifier/master/EveChatNotifier/Screenshots/Toast.png)
 
 Or you can play a sound file - depends on you :-).
 
@@ -34,7 +30,7 @@ Just open the context menu on the icon shown above (right mouse button) and choo
 
 Since version 2.0.0.0 there is a complete rewritten settings editor. You can open it by double click on the icon or opening the context menu -> Settings. If you want to know more about a setting you just need to hover the text in front of the setting and there will be some help in the footer:
 
-![](https://book.esn.space/uploads/images/gallery/2017-08-Aug/scaled-840-0/image-1502229407705.png)
+![](https://raw.githubusercontent.com/MyUncleSam/EveChatNotifier/master/EveChatNotifier/Screenshots/Settings.png)
 
 ## Custom properties
 
