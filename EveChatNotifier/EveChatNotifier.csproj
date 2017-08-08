@@ -53,11 +53,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HelperControls\FileChooser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HelperControls\FileChooser.Designer.cs">
+      <DependentUpon>FileChooser.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HelperControls\FolderChooser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HelperControls\FolderChooser.Designer.cs">
+      <DependentUpon>FolderChooser.cs</DependentUpon>
     </Compile>
     <Compile Include="LogFile.cs" />
     <Compile Include="Logging.cs" />
@@ -65,8 +77,20 @@
     <Compile Include="LogReader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Settings.Designer.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="HelperControls\FileChooser.resx">
+      <DependentUpon>FileChooser.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HelperControls\FolderChooser.resx">
+      <DependentUpon>FolderChooser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -78,6 +102,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Settings.resx">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -91,6 +118,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="log.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="preferences_desktop_notification_bell.ico" />
     <None Include="Resources\eve-logo-landing2.png" />
   </ItemGroup>

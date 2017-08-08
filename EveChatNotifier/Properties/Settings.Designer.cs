@@ -35,12 +35,15 @@ namespace EveChatNotifier.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("%DOCUMENTS%\\EVE\\logs\\Chatlogs")]
-        public string EveLogFolder {
+        public string EveChatLogsPath {
             get {
-                return ((string)(this["EveLogFolder"]));
+                return ((string)(this["EveChatLogsPath"]));
+            }
+            set {
+                this["EveChatLogsPath"] = value;
             }
         }
         
@@ -71,30 +74,39 @@ namespace EveChatNotifier.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("@all,@enemy")]
         public string NotifyKeywords {
             get {
                 return ((string)(this["NotifyKeywords"]));
             }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool ShowNotification {
-            get {
-                return ((bool)(this["ShowNotification"]));
+            set {
+                this["NotifyKeywords"] = value;
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowToast {
+            get {
+                return ((bool)(this["ShowToast"]));
+            }
+            set {
+                this["ShowToast"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("%EXEPATH%\\log.txt")]
         public string LogFile {
             get {
                 return ((string)(this["LogFile"]));
+            }
+            set {
+                this["LogFile"] = value;
             }
         }
         
@@ -125,6 +137,30 @@ namespace EveChatNotifier.Properties {
         public int MaxAgeForWatchingLogs {
             get {
                 return ((int)(this["MaxAgeForWatchingLogs"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MoveOldLogs {
+            get {
+                return ((bool)(this["MoveOldLogs"]));
+            }
+            set {
+                this["MoveOldLogs"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("%CHATLOGS%\\old")]
+        public string MoveOldLogsPath {
+            get {
+                return ((string)(this["MoveOldLogsPath"]));
+            }
+            set {
+                this["MoveOldLogsPath"] = value;
             }
         }
     }

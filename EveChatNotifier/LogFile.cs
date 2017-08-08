@@ -33,6 +33,13 @@ namespace EveChatNotifier
 
             try
             {
+                if(!System.IO.File.Exists(FilePath))
+                {
+                    Logging.WriteLine(string.Format("Logfile no longer exists. Removing file form watching: {0}", FilePath));
+                    EveChatEventArgs eceh = new EveChatEventArgs(null);
+                    RemovedLog(this, eceh);
+                }
+
                 FileInfo fi = new FileInfo(FilePath);
                 long curLenght = fi.Length;
                 if ((curLenght != _LastSize))
@@ -84,5 +91,6 @@ namespace EveChatNotifier
 
         public delegate void EveChatEventHandler(object sender, EveChatEventArgs e);
         public event EveChatEventHandler NewChatLines;
+        public event EveChatEventHandler RemovedLog;
     }
 }

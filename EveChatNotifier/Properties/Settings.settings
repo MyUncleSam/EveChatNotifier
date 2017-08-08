@@ -5,7 +5,7 @@
     <Setting Name="SoundFilePath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="EveLogFolder" Type="System.String" Scope="Application">
+    <Setting Name="EveChatLogsPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">%DOCUMENTS%\EVE\logs\Chatlogs</Value>
     </Setting>
     <Setting Name="ChatEntryRegex" Type="System.String" Scope="Application">
@@ -17,13 +17,13 @@
     <Setting Name="FileCheckInterval" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">1</Value>
     </Setting>
-    <Setting Name="NotifyKeywords" Type="System.String" Scope="Application">
+    <Setting Name="NotifyKeywords" Type="System.String" Scope="User">
       <Value Profile="(Default)">@all,@enemy</Value>
     </Setting>
-    <Setting Name="ShowNotification" Type="System.Boolean" Scope="Application">
+    <Setting Name="ShowToast" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="LogFile" Type="System.String" Scope="Application">
+    <Setting Name="LogFile" Type="System.String" Scope="User">
       <Value Profile="(Default)">%EXEPATH%\log.txt</Value>
     </Setting>
     <Setting Name="NeedsUpgrade" Type="System.Boolean" Scope="User">
@@ -34,6 +34,12 @@
     </Setting>
     <Setting Name="MaxAgeForWatchingLogs" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">8</Value>
+    </Setting>
+    <Setting Name="MoveOldLogs" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MoveOldLogsPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">%CHATLOGS%\old</Value>
     </Setting>
   </Settings>
 </SettingsFile>

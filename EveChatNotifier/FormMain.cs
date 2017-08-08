@@ -19,7 +19,6 @@ namespace EveChatNotifier
         private Timer t = new Timer();
         private string _LogPath = null;
         private List<LogFile> _LogFiles = new List<LogFile>();
-        private bool firstShown = true;
         private static bool isPlaying = false;
         private DateTime lastNotified = DateTime.Now;
         private PopupNotifier Notifier = new PopupNotifier();
@@ -33,6 +32,43 @@ namespace EveChatNotifier
                 Properties.Settings.Default.NeedsUpgrade = false;
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
+            }
+
+            // set real paths
+            string replDocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            Properties.Settings.Default.EveChatLogsPath = Properties.Settings.Default.EveChatLogsPath.Replace("%DOCUMENTS%", replDocumentsPath);
+
+            string exePath = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
+            Properties.Settings.Default.LogFile = Properties.Settings.Default.LogFile.Replace("%EXEPATH%", exePath);
+
+            Properties.Settings.Default.MoveOldLogsPath = Properties.Settings.Default.MoveOldLogsPath.Replace("%CHATLOGS%", Properties.Settings.Default.EveChatLogsPath);
+
+            // set log path
+            _LogPath = Properties.Settings.Default.EveChatLogsPath;
+
+            // create old log folder if needed (and move logs)
+            if (Properties.Settings.Default.MoveOldLogs)
+            {
+                if(!System.IO.Directory.Exists(Properties.Settings.Default.MoveOldLogsPath))
+                {
+                    System.IO.Directory.CreateDirectory(Properties.Settings.Default.MoveOldLogsPath);
+                }
+
+                // move old logs
+                string[] logFiles = System.IO.Directory.GetFiles(Properties.Settings.Default.EveChatLogsPath, "*.txt", SearchOption.TopDirectoryOnly);
+                foreach (string logFile in logFiles)
+                {
+                    string moveDestination = System.IO.Path.Combine(Properties.Settings.Default.MoveOldLogsPath, System.IO.Path.GetFileName(logFile));
+                    try
+                    {
+                        System.IO.File.Move(logFile, moveDestination);
+                        Logging.WriteLine(string.Format("Moved old log file '{0}' to '{1}'", logFile, moveDestination));
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.WriteLine(string.Format("Unable to move old log '{0}' to '{1}'", logFile, moveDestination));
+                    }
+                }
             }
 
             // popup notifier settings
@@ -57,15 +93,38 @@ namespace EveChatNotifier
 
             InitializeComponent();
 
-            // get path to watch
-            string replDocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            _LogPath = Properties.Settings.Default.EveLogFolder.Replace("%DOCUMENTS%", replDocumentsPath);
+            // set version information
+            notifyIcon.Text = string.Format("EveChatNotifier - v{0}", Application.ProductVersion);
 
             // initialize timer - this timer has to watch all folders for log files
+            Logging.WriteLine("Starting log watcher timer");
             t.Tick += T_Tick;
             t.Interval = 5 * 1000; // check all 15 seconds for new log entries
             t.Start();
             T_Tick(null, null);
+
+            // generate notify menu entries
+            ContextMenu cm = new ContextMenu();
+            MenuItem cmExit = new MenuItem("Exit");
+            MenuItem cmSettings = new MenuItem("Settings");
+
+            cmSettings.Click += CmSettings_Click;
+            cm.MenuItems.Add(cmSettings);
+
+            cmExit.Click += CmExit_Click;
+            cm.MenuItems.Add(cmExit);
+
+            notifyIcon.ContextMenu = cm;
+        }
+
+        private void CmSettings_Click(object sender, EventArgs e)
+        {
+            notifyIcon_DoubleClick(null, null);
+        }
+
+        private void CmExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         /// <summary>
@@ -80,7 +139,7 @@ namespace EveChatNotifier
             try
             {
                 string[] logFiles = System.IO.Directory.GetFiles(_LogPath, "*.txt", SearchOption.TopDirectoryOnly);
-
+                
                 // iterate throught all files and generat logfire entries
                 foreach (string curLogFile in logFiles)
                 {
@@ -98,6 +157,7 @@ namespace EveChatNotifier
                     // new log file - add to list
                     LogFile toAdd = new LogFile(curLogFile);
                     toAdd.NewChatLines += NewChatLines;
+                    toAdd.RemovedLog += ToAdd_RemovedLog;
 
                     _LogFiles.Add(toAdd);
 
@@ -108,8 +168,16 @@ namespace EveChatNotifier
             {
                 Logging.WriteLine(string.Format("Error getting log files:{0}{1}", Environment.NewLine, ex.ToString()));
             }
+            finally
+            {
+                t.Start();
+            }
+        }
 
-            t.Start();
+        private void ToAdd_RemovedLog(object sender, LogFile.EveChatEventArgs e)
+        {
+            Logging.WriteLine(string.Format("Removed log file from watching: {0}", ((LogFile)sender).FilePath));
+            _LogFiles.Remove((LogFile)sender);
         }
 
         private void NewChatLines(object sender, LogFile.EveChatEventArgs e)
@@ -144,7 +212,7 @@ namespace EveChatNotifier
                     string[] alsoCheck = Properties.Settings.Default.NotifyKeywords.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                     foreach (string toCheck in alsoCheck)
                     {
-                        if(le.Text.ToLower().Contains(toCheck.ToLower()))
+                        if(le.Text.ToLower().Contains(toCheck.Trim().ToLower()))
                         {
                             needsNotify = true;
                         }
@@ -156,7 +224,7 @@ namespace EveChatNotifier
                 {
                     Logging.WriteLine(string.Format("Notify for chat message of '{0}' in '{1}': {2}", le.Sender, curLog.LogInfo.ChannelName, le.Text));
 
-                    if (string.IsNullOrWhiteSpace(Properties.Settings.Default.SoundFilePath) || Properties.Settings.Default.ShowNotification)
+                    if (string.IsNullOrWhiteSpace(Properties.Settings.Default.SoundFilePath) || Properties.Settings.Default.ShowToast)
                     {
                         if ((DateTime.Now - lastNotified).TotalSeconds > 1)
                         {
@@ -219,61 +287,27 @@ namespace EveChatNotifier
             isPlaying = false;
         }
 
-        private void FormMain_Shown(object sender, EventArgs e)
-        {
-            tbSoundFile.Text = Properties.Settings.Default.SoundFilePath;
-
-            if(firstShown)
-            {
-                this.WindowState = FormWindowState.Minimized;
-                firstShown = false;
-            }
-        }
-
-        private void FormMain_Resize(object sender, EventArgs e)
-        {
-            if(this.WindowState == FormWindowState.Minimized)
-            {
-                //notifyIcon.Visible = true;
-                this.Hide();
-            }
-            else
-            {
-                //notifyIcon.Visible = false;
-            }
-        }
-
         private void notifyIcon_DoubleClick(object sender, EventArgs e)
         {
-            this.Show();
-            try
-            {
-                this.WindowState = FormWindowState.Normal;
-            }
-            catch { }
-            try
-            {
-                this.Focus();
-            }
-            catch { }
-
-            //this.Focus();
-            //this.TopMost = true;
-            //this.TopMost = false;
+            Settings s = new Settings();
+            s.Show();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void FormMain_Shown(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Minimized;
+            this.Hide();
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Properties.Settings.Default.SoundFilePath = tbSoundFile.Text;
+            Logging.WriteLine("Stopping chat notifier.");
             Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
+        }
 
-            this.WindowState = FormWindowState.Minimized;
+        private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            Settings s = new Settings();
+            s.Show();
         }
     }
 }
