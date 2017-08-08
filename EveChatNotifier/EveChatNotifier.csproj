@@ -118,6 +118,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="License.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="log.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
