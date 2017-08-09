@@ -47,9 +47,7 @@ Since version 2.0.0.0 there is a complete rewritten settings editor. You can ope
 
 These settings should only be set if you know what you are doing!
 
-You can change some general properties by modifying the `EveChatNotifier.exe.config` inside the folder of the program itself.
-
-You can change the default path to the eve log files modifying this property. Adding `%DOCUMENTS%` in the text is going to be replaced with the current users document folder.
+You can change some general properties by modifying the `EveChatNotifier.exe.config` inside the folder of the program itself. Keep in mind, that all properties are only loaded on program start. So you have to restart if you made changes to this file.
 
 Setting name | Description
 ------------ | -----------
