@@ -44,5 +44,29 @@
     <Setting Name="LogAllMessages" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="ToastBodyColor" Type="System.Drawing.Color" Scope="Application">
+      <Value Profile="(Default)">Black</Value>
+    </Setting>
+    <Setting Name="ToastBorderColor" Type="System.Drawing.Color" Scope="Application">
+      <Value Profile="(Default)">DimGray</Value>
+    </Setting>
+    <Setting Name="ToastContentColor" Type="System.Drawing.Color" Scope="Application">
+      <Value Profile="(Default)">Orange</Value>
+    </Setting>
+    <Setting Name="ToastContentHoverColor" Type="System.Drawing.Color" Scope="Application">
+      <Value Profile="(Default)">DarkOrange</Value>
+    </Setting>
+    <Setting Name="ToastHeaderColor" Type="System.Drawing.Color" Scope="Application">
+      <Value Profile="(Default)">LightGray</Value>
+    </Setting>
+    <Setting Name="ToastTitleColor" Type="System.Drawing.Color" Scope="Application">
+      <Value Profile="(Default)">White</Value>
+    </Setting>
+    <Setting Name="ToastDelay" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">5000</Value>
+    </Setting>
+    <Setting Name="EveChatLogCheckInterval" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -77,15 +77,15 @@ namespace EveChatNotifier
             Notifier.ShowGrip = false;
             Notifier.Image = Properties.Resources.eve_logo_landing2;
 
-            Notifier.Delay = 5000;
+            Notifier.Delay = Properties.Settings.Default.ToastDelay;
             Notifier.AnimationDuration = 500;
 
-            Notifier.BodyColor = Color.Black;
-            Notifier.BorderColor = Color.Red;
-            Notifier.ContentColor = Color.White;
-            Notifier.ContentHoverColor = Color.White;
-            Notifier.HeaderColor = Color.Orange;
-            Notifier.TitleColor = Color.Gray;
+            Notifier.BodyColor = Properties.Settings.Default.ToastBodyColor;
+            Notifier.BorderColor = Properties.Settings.Default.ToastBorderColor;
+            Notifier.ContentColor = Properties.Settings.Default.ToastContentColor;
+            Notifier.ContentHoverColor = Properties.Settings.Default.ToastContentHoverColor;
+            Notifier.HeaderColor = Properties.Settings.Default.ToastHeaderColor;
+            Notifier.TitleColor = Properties.Settings.Default.ToastTitleColor;
             
             Notifier.Click += Notifier_Click;
 
@@ -99,7 +99,7 @@ namespace EveChatNotifier
             // initialize timer - this timer has to watch all folders for log files
             Logging.WriteLine("Starting log watcher timer");
             t.Tick += T_Tick;
-            t.Interval = 5 * 1000; // check all 15 seconds for new log entries
+            t.Interval = Properties.Settings.Default.EveChatLogCheckInterval * 1000; // check all X seconds for new log files
             t.Start();
             T_Tick(null, null);
 
@@ -108,9 +108,11 @@ namespace EveChatNotifier
             MenuItem cmExit = new MenuItem("Exit");
             MenuItem cmSettings = new MenuItem("Settings");
 
+            // settings
             cmSettings.Click += CmSettings_Click;
             cm.MenuItems.Add(cmSettings);
 
+            // exit
             cmExit.Click += CmExit_Click;
             cm.MenuItems.Add(cmExit);
 

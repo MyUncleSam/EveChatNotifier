@@ -172,5 +172,77 @@ namespace EveChatNotifier.Properties {
                 return ((bool)(this["LogAllMessages"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
+        public global::System.Drawing.Color ToastBodyColor {
+            get {
+                return ((global::System.Drawing.Color)(this["ToastBodyColor"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("DimGray")]
+        public global::System.Drawing.Color ToastBorderColor {
+            get {
+                return ((global::System.Drawing.Color)(this["ToastBorderColor"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Orange")]
+        public global::System.Drawing.Color ToastContentColor {
+            get {
+                return ((global::System.Drawing.Color)(this["ToastContentColor"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("DarkOrange")]
+        public global::System.Drawing.Color ToastContentHoverColor {
+            get {
+                return ((global::System.Drawing.Color)(this["ToastContentHoverColor"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("LightGray")]
+        public global::System.Drawing.Color ToastHeaderColor {
+            get {
+                return ((global::System.Drawing.Color)(this["ToastHeaderColor"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        public global::System.Drawing.Color ToastTitleColor {
+            get {
+                return ((global::System.Drawing.Color)(this["ToastTitleColor"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5000")]
+        public int ToastDelay {
+            get {
+                return ((int)(this["ToastDelay"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public int EveChatLogCheckInterval {
+            get {
+                return ((int)(this["EveChatLogCheckInterval"]));
+            }
+        }
     }
 }
