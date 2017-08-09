@@ -82,10 +82,10 @@ namespace EveChatNotifier
 
             Notifier.BodyColor = Color.Black;
             Notifier.BorderColor = Color.Red;
-            Notifier.ContentColor = Color.Orange;
-            Notifier.ContentHoverColor = Color.Orange;
-            Notifier.HeaderColor = Color.White;
-            Notifier.TitleColor = Color.LightGray;
+            Notifier.ContentColor = Color.White;
+            Notifier.ContentHoverColor = Color.White;
+            Notifier.HeaderColor = Color.Orange;
+            Notifier.TitleColor = Color.Gray;
             
             Notifier.Click += Notifier_Click;
 
@@ -195,8 +195,13 @@ namespace EveChatNotifier
 
                 LogEntry le = LogReader.GetLogEntry(curLine);
 
+                if (Properties.Settings.Default.LogAllMessages)
+                {
+                    Logging.WriteLine(string.Format("Message from '{0}' in '{1}': {2}", le.Sender, curLog.LogInfo.ChannelName, le.Text));
+                }
+
                 // unable to read sender - but we need it so do nothing
-                if(string.IsNullOrWhiteSpace(le.Sender))
+                if (string.IsNullOrWhiteSpace(le.Sender))
                 {
                     continue;
                 }

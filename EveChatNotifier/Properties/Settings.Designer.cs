@@ -163,5 +163,14 @@ namespace EveChatNotifier.Properties {
                 this["MoveOldLogsPath"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LogAllMessages {
+            get {
+                return ((bool)(this["LogAllMessages"]));
+            }
+        }
     }
 }
