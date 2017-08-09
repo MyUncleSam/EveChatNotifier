@@ -1,8 +1,8 @@
 ## Basic information / FAQ
 
 - This tool is not interacting in any way with eve online directly. It is just monitoring and reading log files written by the eve online client.
-- It is not and cannot detect if enemies or bad persons enter the current system.
-- It can only notify you on chat messages - there is no possibility to get notified if you change e.g. the system or someone enters your system.
+- It can only notify for chat messages you receive during playing!
+- There is no way to detect something like someone enters your system or something else - only chat messages :-)
 
 ## What it does
 
