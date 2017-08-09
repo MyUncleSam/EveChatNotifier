@@ -19,12 +19,23 @@ To modify the settings you have to press twice on the program icon next to your 
 And how does the Notification looks like?
 
 ![](https://raw.githubusercontent.com/MyUncleSam/EveChatNotifier/master/EveChatNotifier/Screenshots/Toast.png)
+(Colors can be changed using the properties - see Change settings below.)
 
 Or you can play a sound file - depends on you :-).
 
 ## Close the program
 
 Just open the context menu on the icon shown above (right mouse button) and choose "Exit".
+
+## Performance
+
+Eve creates daily new chat log files. So if you are playing regular there could be a lot of chat files in your log folder. As this tool needs to monitor this files this coul lead into heavy CPU and HDD usage. To avoid that you can try:
+
+Option | Benefit
+------ | -------
+**HIGHLY RECOMMENDED:**<br />Switching the move log function on inside the settings UI | Huge performance boost because only the active logs needs to be checked.
+Increasing `FileCHeckInterval` | Files are checked not as often - this delays the notification
+Increasing `EveChatLogCheckInterval` | Folder with log files are not checked frequently - needs more time to start watching of new log files (new group, conversation, chat, ...)
 
 ## Change settings
 
@@ -40,83 +51,17 @@ You can change some general properties by modifying the `EveChatNotifier.exe.con
 
 You can change the default path to the eve log files modifying this property. Adding `%DOCUMENTS%` in the text is going to be replaced with the current users document folder.
 
-<table id="bkmrk-setting-name-descrip">
-
-<tbody>
-
-<tr>
-
-<td>**Setting name**</td>
-
-<td>**Description**</td>
-
-</tr>
-
-<tr>
-
-<td>UseRegex</td>
-
-<td>It can be switched to use regular expression. Be careful, this is slower then the default logic! Should only be used if there is a new log format and there is no update currently!</td>
-
-</tr>
-
-<tr>
-
-<td>ChatEntryRegex</td>
-
-<td>
-
-The regex to detect a logline. You need to specify the following groups:
-
-*   senddate: date when the post was sent
-*   sender: pilot who sent the message
-*   text: the chat tex
-
-</td>
-
-</tr>
-
-<tr>
-
-<td>FileCheckInterval</td>
-
-<td>
-
-If your pc is very slow, please increase this value. The amount set here specifies how often the log files are checked for new entries. A check only retrieves the current filesize and not the content!
-
-</td>
-
-</tr>
-
-<tr>
-
-<td>EnableLogging</td>
-
-<td>
-
-If you want to disable the logging you can turn it off in here. If you do wo please turn it back on if you need support to log error messages!
-
-</td>
-
-</tr>
-
-<tr>
-
-<td>MaxAgeForWatchingLogs</td>
-
-<td>
-
-Only relevant if you do not let the program clean your log folder:
-
-The watcher only checks files where the last change date is X hours old (the setting).
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
+Setting name | Description
+------------ | -----------
+UseRegex | It can be switched to use regular expression. Be careful, this is slower then the default logic! Should only be used if there is a new log format and there is no update currently!
+ChatEntryRegex | The regex to detect a logline. You need to specify the following groups:<br />- senddate: date when the post was sent<br/>- sender: pilot who sent the message<br />- text: the chat tex
+EveChatLogCheckInterval | Interval of seconds to scan for new log files (which can appear if you enter a new chat, conversation or group)
+FileCheckInterval | If your pc is very slow, please increase this value. The amount set here specifies how often the log files are checked for new entries. A check only retrieves the current filesize and not the content!
+EnableLogging | If you want to disable the logging you can turn it off in here. If you do wo please turn it back on if you need support to log error messages!
+MaxAgeForWatchingLogs | Only relevant if you do not let the program clean your log folder: The watcher only checks files where the last change date is X hours old (the setting).
+ToastDelay | How many seconds the default toast notification should stay before it disappears
+LogAllMessages | Logs into the program all detected chat messages (just for debugging purpose)
+Toast...Color | All possible color settings can be modified using default .net color names which can be found e.g. here: http://yorktown.cbe.wwu.edu/sandvig/shared/netcolors.aspx (only names are suppoerted)
 
 ## Download
 
