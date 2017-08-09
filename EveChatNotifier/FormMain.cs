@@ -199,7 +199,7 @@ namespace EveChatNotifier
 
                 if (Properties.Settings.Default.LogAllMessages)
                 {
-                    Logging.WriteLine(string.Format("Message from '{0}' in '{1}': {2}", le.Sender, curLog.LogInfo.ChannelName, le.Text));
+                    Logging.WriteLine(string.Format("{3}: Message from '{0}' in '{1}': {2}", le.Sender, curLog.LogInfo.ChannelName, le.Text, curLog.LogInfo.PilotName));
                 }
 
                 // unable to read sender - but we need it so do nothing
@@ -229,7 +229,7 @@ namespace EveChatNotifier
                 // if notification is needed
                 if (needsNotify) // isPlaying is managing the notification using sound (only one at a time)
                 {
-                    Logging.WriteLine(string.Format("Notify for chat message of '{0}' in '{1}': {2}", le.Sender, curLog.LogInfo.ChannelName, le.Text));
+                    Logging.WriteLine(string.Format("{3}: Notify for chat message of '{0}' in '{1}': {2}", le.Sender, curLog.LogInfo.ChannelName, le.Text, curLog.LogInfo.PilotName));
 
                     if (string.IsNullOrWhiteSpace(Properties.Settings.Default.SoundFilePath) || Properties.Settings.Default.ShowToast)
                     {
