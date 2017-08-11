@@ -308,7 +308,8 @@ namespace EveChatNotifier
             if(_Settings == null)
             {
                 _Settings = new Settings();
-                _Settings.Show();
+                _Settings.ShowDialog();
+                _Settings = null;
             }
             else
             {
@@ -332,7 +333,8 @@ namespace EveChatNotifier
             if (_Settings == null)
             {
                 _Settings = new Settings();
-                _Settings.Show();
+                _Settings.ShowDialog();
+                _Settings = null;
             }
             else
             {
