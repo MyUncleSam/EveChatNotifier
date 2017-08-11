@@ -22,6 +22,7 @@ namespace EveChatNotifier
         private static bool isPlaying = false;
         private DateTime lastNotified = DateTime.Now;
         private PopupNotifier Notifier = new PopupNotifier();
+        private Settings _Settings = null;
 
         public FormMain()
         {
@@ -296,8 +297,15 @@ namespace EveChatNotifier
 
         private void notifyIcon_DoubleClick(object sender, EventArgs e)
         {
-            Settings s = new Settings();
-            s.Show();
+            if(_Settings == null)
+            {
+                _Settings = new Settings();
+                _Settings.Show();
+            }
+            else
+            {
+                _Settings.Focus();
+            }
         }
 
         private void FormMain_Shown(object sender, EventArgs e)
@@ -313,8 +321,15 @@ namespace EveChatNotifier
 
         private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            Settings s = new Settings();
-            s.Show();
+            if (_Settings == null)
+            {
+                _Settings = new Settings();
+                _Settings.Show();
+            }
+            else
+            {
+                _Settings.Focus();
+            }
         }
     }
 }
