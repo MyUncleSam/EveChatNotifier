@@ -105,6 +105,11 @@ namespace EveChatNotifier
             MenuItem cmExit = new MenuItem("Exit");
             MenuItem cmSettings = new MenuItem("Settings");
             MenuItem cmHomepage = new MenuItem("Homepage");
+            MenuItem cmVersion = new MenuItem(string.Format("v{0}", Application.ProductVersion));
+
+            // version
+            cmVersion.Enabled = false;
+            cm.MenuItems.Add(cmVersion);
 
             // settings
             cmSettings.Click += CmSettings_Click;
