@@ -20,18 +20,16 @@ namespace EveChatNotifier
             cbNotify.DataSource = Enum.GetValues(typeof(NotifyOptions));
 
             // set eve chat path
-            string replDocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            folderEveChatLogs.SelectedFolder = Properties.Settings.Default.EveChatLogsPath.Replace("%DOCUMENTS%", replDocumentsPath);
+            folderEveChatLogs.SelectedFolder = PathHelper.DecryptPath(Properties.Settings.Default.EveChatLogsPath);
 
             // set program log path
-            string exePath = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
-            fileLog.SelectedFile = Properties.Settings.Default.LogFile.Replace("%EXEPATH%", exePath);
+            fileLog.SelectedFile = PathHelper.DecryptPath(Properties.Settings.Default.LogFile);
 
             // set move old logs
             cbMoveLog.Checked = Properties.Settings.Default.MoveOldLogs;
 
             // set move old logs path
-            folderMoveLogs.SelectedFolder = Properties.Settings.Default.MoveOldLogsPath.Replace("%CHATLOGS%", folderEveChatLogs.SelectedFolder);
+            folderMoveLogs.SelectedFolder = PathHelper.DecryptPath(Properties.Settings.Default.MoveOldLogsPath);
 
             // set notify option
             NotifyOptions curOption = NotifyOptions.Toast;
@@ -53,7 +51,7 @@ namespace EveChatNotifier
             // sound file to play
             if(curOption == NotifyOptions.Both || curOption == NotifyOptions.Sound)
             {
-                fileNotifySound.SelectedFile = Properties.Settings.Default.SoundFilePath;
+                fileNotifySound.SelectedFile = PathHelper.DecryptPath(Properties.Settings.Default.SoundFilePath);
             }
             else
             {
@@ -102,10 +100,10 @@ namespace EveChatNotifier
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.EveChatLogsPath = folderEveChatLogs.SelectedFolder;
-            Properties.Settings.Default.LogFile = fileLog.SelectedFile;
+            Properties.Settings.Default.EveChatLogsPath = PathHelper.EncryptedPath(folderEveChatLogs.SelectedFolder);
+            Properties.Settings.Default.LogFile = PathHelper.EncryptedPath(fileLog.SelectedFile);
             Properties.Settings.Default.MoveOldLogs = cbMoveLog.Checked;
-            Properties.Settings.Default.MoveOldLogsPath = folderMoveLogs.SelectedFolder;
+            Properties.Settings.Default.MoveOldLogsPath = PathHelper.EncryptedPath(folderMoveLogs.SelectedFolder);
             Properties.Settings.Default.NotifyKeywords = tbNotifyKeywords.Text;
 
             NotifyOptions no = (NotifyOptions)cbNotify.SelectedItem;
@@ -113,15 +111,15 @@ namespace EveChatNotifier
             {
                 case NotifyOptions.Toast:
                     Properties.Settings.Default.ShowToast = true;
-                    Properties.Settings.Default.SoundFilePath = "";
+                    Properties.Settings.Default.SoundFilePath = null;
                     break;
                 case NotifyOptions.Sound:
                     Properties.Settings.Default.ShowToast = false;
-                    Properties.Settings.Default.SoundFilePath = fileNotifySound.SelectedFile;
+                    Properties.Settings.Default.SoundFilePath = PathHelper.EncryptedPath(fileNotifySound.SelectedFile);
                     break;
                 case NotifyOptions.Both:
                     Properties.Settings.Default.ShowToast = true;
-                    Properties.Settings.Default.SoundFilePath = fileNotifySound.SelectedFile;
+                    Properties.Settings.Default.SoundFilePath = PathHelper.EncryptedPath(fileNotifySound.SelectedFile);
                     break;
             }
             

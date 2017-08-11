@@ -37,7 +37,7 @@ namespace EveChatNotifier.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("%DOCUMENTS%\\EVE\\logs\\Chatlogs")]
+        [global::System.Configuration.DefaultSettingValueAttribute("%DEFAULT_EVELOGPATH%")]
         public string EveChatLogsPath {
             get {
                 return ((string)(this["EveChatLogsPath"]));
@@ -154,7 +154,7 @@ namespace EveChatNotifier.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("%CHATLOGS%\\old")]
+        [global::System.Configuration.DefaultSettingValueAttribute("%DEFAULT_EVEOLDPATH%")]
         public string MoveOldLogsPath {
             get {
                 return ((string)(this["MoveOldLogsPath"]));

@@ -6,7 +6,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="EveChatLogsPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">%DOCUMENTS%\EVE\logs\Chatlogs</Value>
+      <Value Profile="(Default)">%DEFAULT_EVELOGPATH%</Value>
     </Setting>
     <Setting Name="ChatEntryRegex" Type="System.String" Scope="Application">
       <Value Profile="(Default)">\[(?&lt;senddate&gt;(.+))\](?&lt;sender&gt;(.*))\&gt;(?&lt;text&gt;(.*))</Value>
@@ -39,7 +39,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="MoveOldLogsPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">%CHATLOGS%\old</Value>
+      <Value Profile="(Default)">%DEFAULT_EVEOLDPATH%</Value>
     </Setting>
     <Setting Name="LogAllMessages" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">False</Value>

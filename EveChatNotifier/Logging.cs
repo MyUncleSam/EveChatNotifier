@@ -7,19 +7,13 @@ namespace EveChatNotifier
 {
     public static class Logging
     {
-        private static string logPath = null;
+        private static string logPath = PathHelper.DecryptPath(Properties.Settings.Default.LogFile);
 
         public static void WriteLine(string text)
         {
             if(!Properties.Settings.Default.EnableLogging)
             {
                 return;
-            }
-
-            if(logPath == null)
-            {
-                string exePath = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
-                logPath = Properties.Settings.Default.LogFile.Replace("%EXEPATH%", exePath);
             }
 
             try

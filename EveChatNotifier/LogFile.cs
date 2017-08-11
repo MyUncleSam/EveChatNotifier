@@ -35,7 +35,7 @@ namespace EveChatNotifier
             {
                 if(!System.IO.File.Exists(FilePath))
                 {
-                    Logging.WriteLine(string.Format("Logfile no longer exists. Removing file form watching: {0}", FilePath));
+                    Logging.WriteLine(string.Format("Logfile no longer exists: {0}", FilePath));
                     EveChatEventArgs eceh = new EveChatEventArgs(null);
                     RemovedLog(this, eceh);
                 }

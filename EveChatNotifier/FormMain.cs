@@ -17,12 +17,15 @@ namespace EveChatNotifier
     public partial class FormMain : Form
     {
         private Timer t = new Timer();
-        private string _LogPath = null;
         private List<LogFile> _LogFiles = new List<LogFile>();
         private static bool isPlaying = false;
         private DateTime lastNotified = DateTime.Now;
         private PopupNotifier Notifier = new PopupNotifier();
         private Settings _Settings = null;
+
+        private string PathEveChatLogs;
+        private string PathMoveOldLogs;
+        private string PathSoundFile;
 
         public FormMain()
         {
@@ -36,30 +39,23 @@ namespace EveChatNotifier
             }
 
             // set real paths
-            string replDocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            Properties.Settings.Default.EveChatLogsPath = Properties.Settings.Default.EveChatLogsPath.Replace("%DOCUMENTS%", replDocumentsPath);
-
-            string exePath = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
-            Properties.Settings.Default.LogFile = Properties.Settings.Default.LogFile.Replace("%EXEPATH%", exePath);
-
-            Properties.Settings.Default.MoveOldLogsPath = Properties.Settings.Default.MoveOldLogsPath.Replace("%CHATLOGS%", Properties.Settings.Default.EveChatLogsPath);
-
-            // set log path
-            _LogPath = Properties.Settings.Default.EveChatLogsPath;
+            PathEveChatLogs = PathHelper.DecryptPath(Properties.Settings.Default.EveChatLogsPath);
+            PathMoveOldLogs = PathHelper.DecryptPath(Properties.Settings.Default.MoveOldLogsPath);
+            PathSoundFile = PathHelper.DecryptPath(Properties.Settings.Default.SoundFilePath);
 
             // create old log folder if needed (and move logs)
             if (Properties.Settings.Default.MoveOldLogs)
             {
-                if(!System.IO.Directory.Exists(Properties.Settings.Default.MoveOldLogsPath))
+                if(!System.IO.Directory.Exists(PathMoveOldLogs))
                 {
-                    System.IO.Directory.CreateDirectory(Properties.Settings.Default.MoveOldLogsPath);
+                    System.IO.Directory.CreateDirectory(PathMoveOldLogs);
                 }
 
                 // move old logs
-                string[] logFiles = System.IO.Directory.GetFiles(Properties.Settings.Default.EveChatLogsPath, "*.txt", SearchOption.TopDirectoryOnly);
+                string[] logFiles = System.IO.Directory.GetFiles(PathEveChatLogs, "*.txt", SearchOption.TopDirectoryOnly);
                 foreach (string logFile in logFiles)
                 {
-                    string moveDestination = System.IO.Path.Combine(Properties.Settings.Default.MoveOldLogsPath, System.IO.Path.GetFileName(logFile));
+                    string moveDestination = System.IO.Path.Combine(PathMoveOldLogs, System.IO.Path.GetFileName(logFile));
                     try
                     {
                         System.IO.File.Move(logFile, moveDestination);
@@ -108,16 +104,28 @@ namespace EveChatNotifier
             ContextMenu cm = new ContextMenu();
             MenuItem cmExit = new MenuItem("Exit");
             MenuItem cmSettings = new MenuItem("Settings");
+            MenuItem cmHomepage = new MenuItem("Homepage");
 
             // settings
             cmSettings.Click += CmSettings_Click;
             cm.MenuItems.Add(cmSettings);
+
+            // homepage
+            cmHomepage.Click += CmHomepage_Click;
+            cm.MenuItems.Add(cmHomepage);
+
+            cm.MenuItems.Add("-");
 
             // exit
             cmExit.Click += CmExit_Click;
             cm.MenuItems.Add(cmExit);
 
             notifyIcon.ContextMenu = cm;
+        }
+
+        private void CmHomepage_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/MyUncleSam/EveChatNotifier");
         }
 
         private void CmSettings_Click(object sender, EventArgs e)
@@ -141,7 +149,7 @@ namespace EveChatNotifier
 
             try
             {
-                string[] logFiles = System.IO.Directory.GetFiles(_LogPath, "*.txt", SearchOption.TopDirectoryOnly);
+                string[] logFiles = System.IO.Directory.GetFiles(PathEveChatLogs, "*.txt", SearchOption.TopDirectoryOnly);
                 
                 // iterate throught all files and generat logfire entries
                 foreach (string curLogFile in logFiles)
@@ -232,7 +240,7 @@ namespace EveChatNotifier
                 {
                     Logging.WriteLine(string.Format("{3}: Notify for chat message of '{0}' in '{1}': {2}", le.Sender, curLog.LogInfo.ChannelName, le.Text, curLog.LogInfo.PilotName));
 
-                    if (string.IsNullOrWhiteSpace(Properties.Settings.Default.SoundFilePath) || Properties.Settings.Default.ShowToast)
+                    if (string.IsNullOrWhiteSpace(PathSoundFile) || Properties.Settings.Default.ShowToast)
                     {
                         if ((DateTime.Now - lastNotified).TotalSeconds > 1)
                         {
@@ -251,7 +259,7 @@ namespace EveChatNotifier
                     }
 
                     // send sound alert
-                    if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.SoundFilePath))
+                    if (!string.IsNullOrWhiteSpace(PathSoundFile))
                     {
                         try
                         {
@@ -260,7 +268,7 @@ namespace EveChatNotifier
                                 // try playing the file
                                 isPlaying = true;
                                 IWavePlayer wp = new WaveOut();
-                                AudioFileReader afr = new AudioFileReader(Properties.Settings.Default.SoundFilePath);
+                                AudioFileReader afr = new AudioFileReader(PathSoundFile);
                                 wp.Init(afr);
                                 wp.PlaybackStopped += Wp_PlaybackStopped;
                                 wp.Play();
@@ -268,7 +276,7 @@ namespace EveChatNotifier
                         }
                         catch (Exception ex)
                         {
-                            Logging.WriteLine(string.Format("Unable to play sound file '{0}' - removing sound file:{1}{2}", Properties.Settings.Default.SoundFilePath, Environment.NewLine, ex.ToString()));
+                            Logging.WriteLine(string.Format("Unable to play sound file '{0}' - removing sound file:{1}{2}", PathSoundFile, Environment.NewLine, ex.ToString()));
 
                             // fallback to windows sounds if we are unable to play the given sound file
                             Properties.Settings.Default.SoundFilePath = null;
