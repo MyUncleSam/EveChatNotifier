@@ -90,3 +90,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ## Changelog
 
 [https://github.com/MyUncleSam/EveChatNotifier/commits/master](https://github.com/MyUncleSam/EveChatNotifier/commits/master)
+
+
+## Support
+
+If you wanna support my work feel free to donate ISK ingame to "Wolf Tongue".
