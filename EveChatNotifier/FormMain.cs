@@ -50,8 +50,11 @@ namespace EveChatNotifier
                 Properties.Settings.Default.EveChatLogsPath = "%DEFAULT_EVELOGPATH%";
                 pathFix = true;
             }
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
+            if(pathFix)
+            {
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            }
 
             // set real paths
             PathEveChatLogs = PathHelper.DecryptPath(Properties.Settings.Default.EveChatLogsPath);
