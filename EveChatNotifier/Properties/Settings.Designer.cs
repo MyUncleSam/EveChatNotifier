@@ -244,5 +244,17 @@ namespace EveChatNotifier.Properties {
                 return ((int)(this["EveChatLogCheckInterval"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AskedToMoveLogs {
+            get {
+                return ((bool)(this["AskedToMoveLogs"]));
+            }
+            set {
+                this["AskedToMoveLogs"] = value;
+            }
+        }
     }
 }

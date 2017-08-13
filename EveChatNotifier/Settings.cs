@@ -139,32 +139,32 @@ namespace EveChatNotifier
 
         private void lblEveChatLogs_MouseEnter(object sender, EventArgs e)
         {
-            tbHelp.Text = "Path to the folder where all eve chat logs are. These files are going to be monitored.";
+            tbHelp.Text = "Path to the folder where all eve chat logs are located in. This folder is watched for new logs and each log is monitored by this tool for changes.";
         }
 
         private void lblLogFile_MouseEnter(object sender, EventArgs e)
         {
-            tbHelp.Text = "Path to the file this program is writing its logfile into. All actions done by this tool are protocolled in there.";
+            tbHelp.Text = "Path to the file this program is writing its logfile into. All actions done by this tool are protocolled in there. (You can see all actions in here - even possible errors for support reasons.)";
         }
 
         private void lblMoveLogs_MouseEnter(object sender, EventArgs e)
         {
-            tbHelp.Text = "If activated the programm tries to move all eve chat log files to the old folder directory.";
+            tbHelp.Text = "If activated the programm tries to move all eve chat log files to the old folder directory. Highly recommended to save computer ressources!";
         }
 
         private void lblNotifyOption_Enter(object sender, EventArgs e)
         {
-            tbHelp.Text = string.Format("Kind of notification:{0}Toast: Outlook like notification; Sound: only play the sound file; Both: ...", Environment.NewLine);
+            tbHelp.Text = string.Format("Kind of notification:{0}Toast: Outlook like notification; Sound: only play the sound file; and both", Environment.NewLine);
         }
 
         private void lblSoundFile_MouseEnter(object sender, EventArgs e)
         {
-            tbHelp.Text = string.Format("The sound file which should be played. Please keep in mind that this sound should be short because there is no abort function!{0}Supported files are e.g.: mp3, wav, ogg", Environment.NewLine);
+            tbHelp.Text = string.Format("The sound file which should be played. Keep in mind that as long the playback needs there will be no new notifications!{0}Supported files are e.g.: mp3, wav, ogg", Environment.NewLine);
         }
 
         private void lblNotifyKeywords_MouseEnter(object sender, EventArgs e)
         {
-            tbHelp.Text = "Here you can add additional keywords you want to use for notification. Please seperate them using ','! Not case sensitive.";
+            tbHelp.Text = "Here you can add additional keywords you want to use for notification. Please seperate them using ',' - not case sensitive. (e.g. if you have nickname everyone uses";
         }
     }
 }

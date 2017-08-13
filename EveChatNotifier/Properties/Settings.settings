@@ -68,5 +68,8 @@
     <Setting Name="EveChatLogCheckInterval" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">5</Value>
     </Setting>
+    <Setting Name="AskedToMoveLogs" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

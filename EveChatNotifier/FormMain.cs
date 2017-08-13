@@ -18,10 +18,10 @@ namespace EveChatNotifier
     {
         private Timer t = new Timer();
         private List<LogFile> _LogFiles = new List<LogFile>();
-        private static bool isPlaying = false;
         private DateTime lastNotified = DateTime.Now;
         private PopupNotifier Notifier = new PopupNotifier();
         private Settings _Settings = null;
+        private IWavePlayer wp = new WaveOut();
 
         private string PathEveChatLogs;
         private string PathMoveOldLogs;
@@ -52,6 +52,22 @@ namespace EveChatNotifier
             }
             if(pathFix)
             {
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            }
+
+            // first launch ask for move logs
+            if(!Properties.Settings.Default.AskedToMoveLogs)
+            {
+                if(!Properties.Settings.Default.MoveOldLogs)
+                {
+                    if (MessageBox.Show(string.Format("Do you want to let the program move your old log files?{0}{0}Moving the log files is a huge performance boost and highly recommended! If you do not move the logs, this program could need a lot of cpu power.{0}{0}This can be enabled/disabled in the settings at any time.", Environment.NewLine), "Activate log moving", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                    {
+                        Properties.Settings.Default.MoveOldLogs = true;
+                    }
+                }
+
+                Properties.Settings.Default.AskedToMoveLogs = true;
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
             }
@@ -286,14 +302,11 @@ namespace EveChatNotifier
                     {
                         try
                         {
-                            if(!isPlaying)
+                            if(wp.PlaybackState == PlaybackState.Stopped)
                             {
                                 // try playing the file
-                                isPlaying = true;
-                                IWavePlayer wp = new WaveOut();
                                 AudioFileReader afr = new AudioFileReader(PathSoundFile);
                                 wp.Init(afr);
-                                wp.PlaybackStopped += Wp_PlaybackStopped;
                                 wp.Play();
                             }
                         }
@@ -317,13 +330,20 @@ namespace EveChatNotifier
             {
                 PopupNotifier pn = (PopupNotifier)sender;
                 pn.Hide();
+
+                try
+                {
+                    if(wp.PlaybackState != PlaybackState.Stopped)
+                    {
+                        wp.Stop();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logging.WriteLine(string.Format("Unable to stop playback of sound file: {0}", ex.ToString()));
+                }
             }
             catch { }
-        }
-
-        private void Wp_PlaybackStopped(object sender, NAudio.Wave.StoppedEventArgs e)
-        {
-            isPlaying = false;
         }
 
         private void notifyIcon_DoubleClick(object sender, EventArgs e)
