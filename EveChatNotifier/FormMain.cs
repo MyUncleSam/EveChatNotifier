@@ -38,6 +38,21 @@ namespace EveChatNotifier
                 Properties.Settings.Default.Reload();
             }
 
+            // bugfix for empty paths
+            bool pathFix = false;
+            if(string.IsNullOrWhiteSpace(Properties.Settings.Default.MoveOldLogsPath))
+            {
+                Properties.Settings.Default.MoveOldLogsPath = "%DEFAULT_EVEOLDPATH%";
+                pathFix = true;
+            }
+            if(string.IsNullOrWhiteSpace(Properties.Settings.Default.EveChatLogsPath))
+            {
+                Properties.Settings.Default.EveChatLogsPath = "%DEFAULT_EVELOGPATH%";
+                pathFix = true;
+            }
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+
             // set real paths
             PathEveChatLogs = PathHelper.DecryptPath(Properties.Settings.Default.EveChatLogsPath);
             PathMoveOldLogs = PathHelper.DecryptPath(Properties.Settings.Default.MoveOldLogsPath);
