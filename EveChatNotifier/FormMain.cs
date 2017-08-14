@@ -306,6 +306,7 @@ namespace EveChatNotifier
                             {
                                 // try playing the file
                                 AudioFileReader afr = new AudioFileReader(PathSoundFile);
+                                afr.Volume = Convert.ToSingle(Properties.Settings.Default.SoundVolume / 100.0);
                                 wp.Init(afr);
                                 wp.Play();
                             }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NAudio.Wave;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,6 +12,8 @@ namespace EveChatNotifier
 {
     public partial class Settings : Form
     {
+        private IWavePlayer wp = new WaveOut();
+
         public Settings()
         {
             InitializeComponent();
@@ -83,12 +86,18 @@ namespace EveChatNotifier
             {
                 case NotifyOptions.Toast:
                     fileNotifySound.Enabled = false;
+                    tbarVolume.Enabled = false;
+                    btnTestVolume.Enabled = false;
                     break;
                 case NotifyOptions.Sound:
                     fileNotifySound.Enabled = true;
+                    tbarVolume.Enabled = true;
+                    btnTestVolume.Enabled = true;
                     break;
                 case NotifyOptions.Both:
                     fileNotifySound.Enabled = true;
+                    tbarVolume.Enabled = true;
+                    btnTestVolume.Enabled = true;
                     break;
             }
         }
@@ -165,6 +174,37 @@ namespace EveChatNotifier
         private void lblNotifyKeywords_MouseEnter(object sender, EventArgs e)
         {
             tbHelp.Text = "Here you can add additional keywords you want to use for notification. Please seperate them using ',' - not case sensitive. (e.g. if you have nickname everyone uses";
+        }
+
+        private void lblVolume_MouseEnter(object sender, EventArgs e)
+        {
+            tbHelp.Text = "Here you can set the volume of your sound notification.";
+        }
+
+        private void btnTestVolume_Click(object sender, EventArgs e)
+        {
+            if(string.IsNullOrWhiteSpace(fileNotifySound.SelectedFile))
+            {
+                MessageBox.Show("Please choose a sound file first!", "Choose sound", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                return;
+            }
+
+            try
+            {
+                if(wp.PlaybackState != PlaybackState.Stopped)
+                {
+                    wp.Stop();
+                }
+
+                AudioFileReader afr = new AudioFileReader(fileNotifySound.SelectedFile);
+                afr.Volume = Convert.ToSingle(tbarVolume.Value / 100.0);
+                wp.Init(afr);
+                wp.Play();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("Unable to play sound file:{0}{1}", Environment.NewLine, ex.Message), "Unable to play sound file", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+            }
         }
     }
 }

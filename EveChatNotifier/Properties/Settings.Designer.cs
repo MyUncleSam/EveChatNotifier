@@ -25,7 +25,7 @@ namespace EveChatNotifier.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("%EXEPATH%\\pling.mp3")]
         public string SoundFilePath {
             get {
                 return ((string)(this["SoundFilePath"]));
@@ -254,6 +254,18 @@ namespace EveChatNotifier.Properties {
             }
             set {
                 this["AskedToMoveLogs"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int SoundVolume {
+            get {
+                return ((int)(this["SoundVolume"]));
+            }
+            set {
+                this["SoundVolume"] = value;
             }
         }
     }

@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="SoundFilePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">%EXEPATH%\pling.mp3</Value>
     </Setting>
     <Setting Name="EveChatLogsPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">%DEFAULT_EVELOGPATH%</Value>
@@ -70,6 +70,9 @@
     </Setting>
     <Setting Name="AskedToMoveLogs" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SoundVolume" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">100</Value>
     </Setting>
   </Settings>
 </SettingsFile>

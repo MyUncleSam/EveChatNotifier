@@ -125,6 +125,9 @@
     <Content Include="log.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="pling.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="preferences_desktop_notification_bell.ico" />
     <Content Include="Screenshots\NotifyIcon.png" />
     <Content Include="Screenshots\Settings.png" />
