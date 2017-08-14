@@ -25,7 +25,7 @@ namespace EveChatNotifier.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("%EXEPATH%\\pling.mp3")]
+        [global::System.Configuration.DefaultSettingValueAttribute("%EXEPATH%\\notify.mp3")]
         public string SoundFilePath {
             get {
                 return ((string)(this["SoundFilePath"]));

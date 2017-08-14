@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="SoundFilePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">%EXEPATH%\pling.mp3</Value>
+      <Value Profile="(Default)">%EXEPATH%\notify.mp3</Value>
     </Setting>
     <Setting Name="EveChatLogsPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">%DEFAULT_EVELOGPATH%</Value>
