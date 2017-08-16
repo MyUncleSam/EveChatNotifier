@@ -38,6 +38,9 @@ namespace EveChatNotifier
                 Properties.Settings.Default.Reload();
             }
 
+            // check for new version
+            Updater.GithubUpdateChecker.VersionCheckasync("MyUncleSam", "EveChatNotifier");
+
             // bugfix for empty paths
             bool pathFix = false;
             if(string.IsNullOrWhiteSpace(Properties.Settings.Default.MoveOldLogsPath))
