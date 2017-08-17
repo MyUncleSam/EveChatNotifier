@@ -39,7 +39,10 @@ namespace EveChatNotifier
             }
 
             // check for new version
-            Updater.GithubUpdateChecker.VersionCheckasync("MyUncleSam", "EveChatNotifier");
+            if(Properties.Settings.Default.CheckForUpdates)
+            {
+                Updater.GithubUpdateChecker.VersionCheckasync("MyUncleSam", "EveChatNotifier");
+            }
 
             // bugfix for empty paths
             bool pathFix = false;

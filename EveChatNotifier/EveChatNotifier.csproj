@@ -56,7 +56,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GithubRelease.cs" />
+    <Compile Include="Updater\GithubRelease.cs" />
     <Compile Include="HelperControls\FileChooser.cs">
       <SubType>UserControl</SubType>
     </Compile>

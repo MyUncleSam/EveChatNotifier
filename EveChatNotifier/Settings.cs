@@ -63,6 +63,9 @@ namespace EveChatNotifier
 
             // set notify keywords
             tbNotifyKeywords.Text = Properties.Settings.Default.NotifyKeywords;
+
+            // set update check
+            cbUpdates.Checked = Properties.Settings.Default.CheckForUpdates;
         }
 
         private void cbMoveLog_CheckedChanged(object sender, EventArgs e)
@@ -115,6 +118,7 @@ namespace EveChatNotifier
             Properties.Settings.Default.MoveOldLogsPath = PathHelper.EncryptedPath(folderMoveLogs.SelectedFolder);
             Properties.Settings.Default.NotifyKeywords = tbNotifyKeywords.Text;
             Properties.Settings.Default.SoundVolume = tbarVolume.Value;
+            Properties.Settings.Default.CheckForUpdates = cbUpdates.Checked;
 
             NotifyOptions no = (NotifyOptions)cbNotify.SelectedItem;
             switch (no)
@@ -180,6 +184,11 @@ namespace EveChatNotifier
         private void lblVolume_MouseEnter(object sender, EventArgs e)
         {
             tbHelp.Text = "Here you can set the volume of your sound notification.";
+        }
+
+        private void lblUpdateCheck_MouseEnter(object sender, EventArgs e)
+        {
+            tbHelp.Text = string.Format("If enabled the program checks on startup for new versions by calling the github release api.{0}(Simple get request - no information are sent)", Environment.NewLine);
         }
 
         private void btnTestVolume_Click(object sender, EventArgs e)

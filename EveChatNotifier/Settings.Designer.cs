@@ -42,19 +42,23 @@
             this.lblLogPath = new System.Windows.Forms.Label();
             this.lblEveChatLogPath = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnTestVolume = new System.Windows.Forms.Button();
+            this.lblVolume = new System.Windows.Forms.Label();
+            this.tbarVolume = new System.Windows.Forms.TrackBar();
             this.tbNotifyKeywords = new System.Windows.Forms.TextBox();
             this.lblSoundFile = new System.Windows.Forms.Label();
             this.lblNotifyKeywords = new System.Windows.Forms.Label();
             this.fileNotifySound = new EveChatNotifier.HelperControls.FileChooser();
             this.lblNotifyOption = new System.Windows.Forms.Label();
             this.cbNotify = new System.Windows.Forms.ComboBox();
-            this.tbarVolume = new System.Windows.Forms.TrackBar();
-            this.lblVolume = new System.Windows.Forms.Label();
-            this.btnTestVolume = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.cbUpdates = new System.Windows.Forms.CheckBox();
+            this.lblUpdateCheck = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbarVolume)).BeginInit();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -65,7 +69,7 @@
             this.panel1.Controls.Add(this.tbHelp);
             this.panel1.Controls.Add(this.btnCancel);
             this.panel1.Controls.Add(this.btnSave);
-            this.panel1.Location = new System.Drawing.Point(-52, 274);
+            this.panel1.Location = new System.Drawing.Point(-52, 326);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(962, 121);
             this.panel1.TabIndex = 0;
@@ -228,6 +232,44 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "notification";
             // 
+            // btnTestVolume
+            // 
+            this.btnTestVolume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTestVolume.Enabled = false;
+            this.btnTestVolume.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTestVolume.Location = new System.Drawing.Point(771, 74);
+            this.btnTestVolume.Name = "btnTestVolume";
+            this.btnTestVolume.Size = new System.Drawing.Size(69, 23);
+            this.btnTestVolume.TabIndex = 12;
+            this.btnTestVolume.Text = "test";
+            this.btnTestVolume.UseVisualStyleBackColor = true;
+            this.btnTestVolume.Click += new System.EventHandler(this.btnTestVolume_Click);
+            // 
+            // lblVolume
+            // 
+            this.lblVolume.AutoSize = true;
+            this.lblVolume.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVolume.Location = new System.Drawing.Point(6, 79);
+            this.lblVolume.Name = "lblVolume";
+            this.lblVolume.Size = new System.Drawing.Size(41, 13);
+            this.lblVolume.TabIndex = 11;
+            this.lblVolume.Text = "volume";
+            this.lblVolume.MouseEnter += new System.EventHandler(this.lblVolume_MouseEnter);
+            // 
+            // tbarVolume
+            // 
+            this.tbarVolume.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbarVolume.AutoSize = false;
+            this.tbarVolume.Enabled = false;
+            this.tbarVolume.Location = new System.Drawing.Point(105, 74);
+            this.tbarVolume.Maximum = 100;
+            this.tbarVolume.Name = "tbarVolume";
+            this.tbarVolume.Size = new System.Drawing.Size(660, 25);
+            this.tbarVolume.TabIndex = 10;
+            this.tbarVolume.TickFrequency = 10;
+            this.tbarVolume.Value = 100;
+            // 
             // tbNotifyKeywords
             // 
             this.tbNotifyKeywords.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -300,43 +342,40 @@
             this.cbNotify.TabIndex = 0;
             this.cbNotify.SelectedValueChanged += new System.EventHandler(this.cbNotify_SelectedValueChanged);
             // 
-            // tbarVolume
+            // groupBox3
             // 
-            this.tbarVolume.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbarVolume.AutoSize = false;
-            this.tbarVolume.Enabled = false;
-            this.tbarVolume.Location = new System.Drawing.Point(105, 74);
-            this.tbarVolume.Maximum = 100;
-            this.tbarVolume.Name = "tbarVolume";
-            this.tbarVolume.Size = new System.Drawing.Size(660, 25);
-            this.tbarVolume.TabIndex = 10;
-            this.tbarVolume.TickFrequency = 10;
-            this.tbarVolume.Value = 100;
+            this.groupBox3.Controls.Add(this.cbUpdates);
+            this.groupBox3.Controls.Add(this.lblUpdateCheck);
+            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox3.Location = new System.Drawing.Point(12, 272);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(846, 47);
+            this.groupBox3.TabIndex = 3;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "program settings";
             // 
-            // lblVolume
+            // cbUpdates
             // 
-            this.lblVolume.AutoSize = true;
-            this.lblVolume.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVolume.Location = new System.Drawing.Point(6, 79);
-            this.lblVolume.Name = "lblVolume";
-            this.lblVolume.Size = new System.Drawing.Size(41, 13);
-            this.lblVolume.TabIndex = 11;
-            this.lblVolume.Text = "volume";
-            this.lblVolume.MouseEnter += new System.EventHandler(this.lblVolume_MouseEnter);
+            this.cbUpdates.AutoSize = true;
+            this.cbUpdates.Location = new System.Drawing.Point(104, 20);
+            this.cbUpdates.Name = "cbUpdates";
+            this.cbUpdates.Size = new System.Drawing.Size(15, 14);
+            this.cbUpdates.TabIndex = 10;
+            this.cbUpdates.UseVisualStyleBackColor = true;
             // 
-            // btnTestVolume
+            // lblUpdateCheck
             // 
-            this.btnTestVolume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTestVolume.Enabled = false;
-            this.btnTestVolume.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTestVolume.Location = new System.Drawing.Point(771, 74);
-            this.btnTestVolume.Name = "btnTestVolume";
-            this.btnTestVolume.Size = new System.Drawing.Size(69, 23);
-            this.btnTestVolume.TabIndex = 12;
-            this.btnTestVolume.Text = "test";
-            this.btnTestVolume.UseVisualStyleBackColor = true;
-            this.btnTestVolume.Click += new System.EventHandler(this.btnTestVolume_Click);
+            this.lblUpdateCheck.AutoSize = true;
+            this.lblUpdateCheck.Cursor = System.Windows.Forms.Cursors.Help;
+            this.lblUpdateCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUpdateCheck.Location = new System.Drawing.Point(6, 19);
+            this.lblUpdateCheck.Name = "lblUpdateCheck";
+            this.lblUpdateCheck.Size = new System.Drawing.Size(93, 13);
+            this.lblUpdateCheck.TabIndex = 9;
+            this.lblUpdateCheck.Text = "check for updates";
+            this.lblUpdateCheck.MouseEnter += new System.EventHandler(this.lblUpdateCheck_MouseEnter);
             // 
             // Settings
             // 
@@ -344,7 +383,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(870, 319);
+            this.ClientSize = new System.Drawing.Size(870, 371);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
@@ -361,6 +401,8 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbarVolume)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -389,5 +431,8 @@
         private System.Windows.Forms.Label lblVolume;
         private System.Windows.Forms.TrackBar tbarVolume;
         private System.Windows.Forms.Button btnTestVolume;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.CheckBox cbUpdates;
+        private System.Windows.Forms.Label lblUpdateCheck;
     }
 }
