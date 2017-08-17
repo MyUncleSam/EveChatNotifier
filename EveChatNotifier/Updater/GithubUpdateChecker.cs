@@ -42,6 +42,8 @@ namespace EveChatNotifier.Updater
 
                 if(gitVersion > System.Reflection.Assembly.GetExecutingAssembly().GetName().Version)
                 {
+                    Logging.WriteLine(string.Format("New version found: {0}", release.tag_name));
+
                     // we have a new version
                     releasePage = release.html_url;
 
@@ -74,6 +76,10 @@ namespace EveChatNotifier.Updater
                     Notifier.TitleText = string.Format("New version found: {0}", release.tag_name);
                     Notifier.ContentText = string.Format("Click to update:{0}{1}", Environment.NewLine, release.body);
                     Notifier.Popup();
+                }
+                else
+                {
+                    Logging.WriteLine(string.Format("Your version {0} is up2date.", release.tag_name));
                 }
             }
             catch (Exception ex)
