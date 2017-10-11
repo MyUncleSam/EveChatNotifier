@@ -66,6 +66,9 @@ namespace EveChatNotifier
 
             // set update check
             cbUpdates.Checked = Properties.Settings.Default.CheckForUpdates;
+
+            // set autostart object
+            cbAutoStart.Checked = Autostart.ManageAutostart.Instance.Enabled;
         }
 
         private void cbMoveLog_CheckedChanged(object sender, EventArgs e)
@@ -139,6 +142,8 @@ namespace EveChatNotifier
             
             Properties.Settings.Default.Save();
 
+            Autostart.ManageAutostart.Instance.Enabled = cbAutoStart.Enabled;
+
             // restart the application to apply all new settings
             Application.Restart();
         }
@@ -189,6 +194,11 @@ namespace EveChatNotifier
         private void lblUpdateCheck_MouseEnter(object sender, EventArgs e)
         {
             tbHelp.Text = string.Format("If enabled the program checks on startup for new versions by calling the github release api.{0}(Simple get request - no information are sent)", Environment.NewLine);
+        }
+
+        private void lblAutostart_MouseEnter(object sender, EventArgs e)
+        {
+            tbHelp.Text = string.Format("If you want this program can add itselfe to autostart by checking this box (5 minutes after user logged on).{0}Please enable 'move old logs' to avoid high cpu and hdd usage of this tool.", Environment.NewLine);
         }
 
         private void btnTestVolume_Click(object sender, EventArgs e)

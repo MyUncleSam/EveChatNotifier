@@ -54,6 +54,8 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cbUpdates = new System.Windows.Forms.CheckBox();
             this.lblUpdateCheck = new System.Windows.Forms.Label();
+            this.lblAutostart = new System.Windows.Forms.Label();
+            this.cbAutoStart = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -69,7 +71,7 @@
             this.panel1.Controls.Add(this.tbHelp);
             this.panel1.Controls.Add(this.btnCancel);
             this.panel1.Controls.Add(this.btnSave);
-            this.panel1.Location = new System.Drawing.Point(-52, 326);
+            this.panel1.Location = new System.Drawing.Point(-52, 347);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(962, 121);
             this.panel1.TabIndex = 0;
@@ -346,12 +348,14 @@
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.cbAutoStart);
+            this.groupBox3.Controls.Add(this.lblAutostart);
             this.groupBox3.Controls.Add(this.cbUpdates);
             this.groupBox3.Controls.Add(this.lblUpdateCheck);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(12, 272);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(846, 47);
+            this.groupBox3.Size = new System.Drawing.Size(846, 66);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "program settings";
@@ -377,13 +381,34 @@
             this.lblUpdateCheck.Text = "check for updates";
             this.lblUpdateCheck.MouseEnter += new System.EventHandler(this.lblUpdateCheck_MouseEnter);
             // 
+            // lblAutostart
+            // 
+            this.lblAutostart.AutoSize = true;
+            this.lblAutostart.Cursor = System.Windows.Forms.Cursors.Help;
+            this.lblAutostart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAutostart.Location = new System.Drawing.Point(6, 40);
+            this.lblAutostart.Name = "lblAutostart";
+            this.lblAutostart.Size = new System.Drawing.Size(89, 13);
+            this.lblAutostart.TabIndex = 11;
+            this.lblAutostart.Text = "autostart program";
+            this.lblAutostart.MouseEnter += new System.EventHandler(this.lblAutostart_MouseEnter);
+            // 
+            // cbAutoStart
+            // 
+            this.cbAutoStart.AutoSize = true;
+            this.cbAutoStart.Location = new System.Drawing.Point(104, 40);
+            this.cbAutoStart.Name = "cbAutoStart";
+            this.cbAutoStart.Size = new System.Drawing.Size(15, 14);
+            this.cbAutoStart.TabIndex = 12;
+            this.cbAutoStart.UseVisualStyleBackColor = true;
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(870, 371);
+            this.ClientSize = new System.Drawing.Size(870, 392);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -434,5 +459,7 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.CheckBox cbUpdates;
         private System.Windows.Forms.Label lblUpdateCheck;
+        private System.Windows.Forms.CheckBox cbAutoStart;
+        private System.Windows.Forms.Label lblAutostart;
     }
 }
