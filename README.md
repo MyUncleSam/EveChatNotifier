@@ -3,6 +3,7 @@
 - This tool is not interacting in any way with eve online directly. It is just monitoring and reading log files written by the eve online client.
 - It can only notify for chat messages you receive during playing!
 - There is no way to detect something like someone enters your system or something else - only chat messages :-)
+- Like every free or open source software: use at your own risk.
 
 ## What it does
 
@@ -26,6 +27,15 @@ Or you can play a sound file - depends on you :-).
 ## Close the program
 
 Just open the context menu on the icon shown above (right mouse button) and choose "Exit".
+
+## Autostart information
+
+Since version 2.7.0.0 there is a built in autostart function. You can enable it at the properties page. Be sure to remove any other autostart entries which have been set manually.
+The autostart is done using the windows scheduler function (logon trigger). Choosing this option has a lot of benefits. Some are:
+- If autostart is disabled the exe is not called at all, so no performance issues here.
+- This option can be managed easier by code.
+- No ugly registry settings needed.
+- Can be viewed by the user opening the windows scheduler manager (is inside the root folder called "EveChatNotifier AutoStart").
 
 ## Performance
 
