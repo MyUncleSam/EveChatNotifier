@@ -68,7 +68,15 @@ namespace EveChatNotifier
             cbUpdates.Checked = Properties.Settings.Default.CheckForUpdates;
 
             // set autostart object
-            cbAutoStart.Checked = Autostart.ManageAutostart.Instance.Enabled;
+            try
+            {
+                cbAutoStart.Checked = Autostart.ManageAutostart.Instance.Enabled;
+            }
+            catch(Exception ex)
+            {
+                Logging.WriteLine(string.Format("Error getting autostart enabled state:{0}{1}", Environment.NewLine, ex.ToString()));
+                cbAutoStart.Enabled = false;
+            }
         }
 
         private void cbMoveLog_CheckedChanged(object sender, EventArgs e)
@@ -142,7 +150,17 @@ namespace EveChatNotifier
             
             Properties.Settings.Default.Save();
 
-            Autostart.ManageAutostart.Instance.Enabled = cbAutoStart.Enabled;
+            if(cbAutoStart.Enabled)
+            {
+                try
+                {
+                    Autostart.ManageAutostart.Instance.Enabled = cbAutoStart.Checked;
+                }
+                catch (Exception ex)
+                {
+                    Logging.WriteLine(string.Format("Error changing autostart enabled:{0}{1}", Environment.NewLine, ex.ToString()));
+                }
+            }
 
             // restart the application to apply all new settings
             Application.Restart();
@@ -198,7 +216,7 @@ namespace EveChatNotifier
 
         private void lblAutostart_MouseEnter(object sender, EventArgs e)
         {
-            tbHelp.Text = string.Format("If you want this program can add itselfe to autostart by checking this box (5 minutes after user logged on).{0}Please enable 'move old logs' to avoid high cpu and hdd usage of this tool.", Environment.NewLine);
+            tbHelp.Text = string.Format("If you want this program can add itselfe to autostart by checking this box.{0}Please enable 'move old logs' to avoid high cpu and hdd usage of this tool!", Environment.NewLine);
         }
 
         private void btnTestVolume_Click(object sender, EventArgs e)
