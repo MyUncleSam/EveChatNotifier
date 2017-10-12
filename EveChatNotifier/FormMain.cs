@@ -174,7 +174,6 @@ namespace EveChatNotifier
             }
             catch (Exception ex)
             {
-                MessageBox.Show("There was an error checking your autostart configuration. Please contact the author of this software providing the information in the log file.");
                 Logging.WriteLine(string.Format("Error checking for autostart:{0}{1}", Environment.NewLine, ex.ToString()));
             }
         }

@@ -14,6 +14,7 @@ namespace EveChatNotifier.Updater
     {
         private static WebClient wc = new WebClient();
         private static string releasePage = null;
+        private static GithubRelease release = null;
 
         /// <summary>
         /// retrieves the 
@@ -37,7 +38,7 @@ namespace EveChatNotifier.Updater
         {
             try
             {
-                GithubRelease release = Newtonsoft.Json.JsonConvert.DeserializeObject<GithubRelease>(e.Result);
+                release = Newtonsoft.Json.JsonConvert.DeserializeObject<GithubRelease>(e.Result);
                 Version gitVersion = Version.Parse(release.tag_name);
 
                 if(gitVersion > System.Reflection.Assembly.GetExecutingAssembly().GetName().Version)
@@ -90,33 +91,34 @@ namespace EveChatNotifier.Updater
 
         private static void Notifier_Click(object sender, EventArgs e)
         {
-            // do basic checking if it is a webpage link
-            Uri releaseUri = new Uri(releasePage);
-            if(string.IsNullOrWhiteSpace(releaseUri.Scheme) || !releaseUri.Scheme.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+            ((PopupNotifier)sender).Hide();
+
+            UpdateDialog ud = new UpdateDialog(release.body);
+            ud.ShowDialog();
+
+            if(ud.UserResult == UpdateDialog.UpdateEnum.OpenWebpage)
             {
-                Logging.WriteLine(string.Format("Update release page seems to be invalid (non http scheme): {0}", releasePage));
-                System.Windows.Forms.MessageBox.Show("Opening the release page was blocked for security reasons. Please take a look into the log file!", "Blocked for security reasons", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error, System.Windows.Forms.MessageBoxDefaultButton.Button1);
+                System.Diagnostics.Process.Start("https://github.com/MyUncleSam/EveChatNotifier");
+            }
+            else if(ud.UserResult == UpdateDialog.UpdateEnum.StartUpdate)
+            {
+                // start auto updater logic
+                string downloadUrl = release.assets.First(f => System.IO.Path.GetExtension(f.name).Trim('.').Equals("zip", StringComparison.OrdinalIgnoreCase)).browser_download_url;
+                string workingDirectory = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
+
+                ProcessStartInfo psi = new ProcessStartInfo();
+                psi.FileName = System.IO.Path.Combine(workingDirectory, "AutoUpdater.exe");
+                psi.Arguments = string.Format("-d=\"{0}\" -e=\"{1}\"", downloadUrl, System.Windows.Forms.Application.ExecutablePath);
+                Process proc = new Process();
+                proc.StartInfo = psi;
+                proc.Start();
+
+                System.Windows.Forms.Application.Exit();
+            }
+            else
+            {
                 return;
             }
-
-            try
-            {
-                Process.Start(GetBrowserPath(), releasePage);
-            }
-            catch (Exception ex)
-            {
-                Logging.WriteLine(string.Format("Unable to open default browser - opening webpage by executing webpage url:{0}{1}", Environment.NewLine, ex.ToString()));
-                Process.Start(releasePage);
-            }
-
-            ((PopupNotifier)sender).Hide();
-        }
-
-        private static string GetBrowserPath()
-        {
-            string key = @"http\shell\open\command";
-            RegistryKey registryKey = Registry.ClassesRoot.OpenSubKey(key, false);
-            return ((string)registryKey.GetValue(null, null)).Split('"')[1];
         }
     }
 }
