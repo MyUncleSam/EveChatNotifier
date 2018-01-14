@@ -27,22 +27,37 @@ namespace AutoUpdater
         public static void ExtractToDirectory(string sourceFile, string destinationFolder, bool overwrite)
         {
             ZipFile zf = new ZipFile(sourceFile);
+            bool hasError = false;
             
             foreach (ZipEntry ze in zf)
             {
                 string fileName = System.IO.Path.GetFileName(ze.FileName).Trim('.').ToLower();
 
-                if(FilesNotOverwrite.Any(a => a.Equals(fileName, StringComparison.OrdinalIgnoreCase)))
+                try
                 {
-                    continue;
-                }
+                    if (FilesNotOverwrite.Any(a => a.Equals(fileName, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        continue;
+                    }
 
-                ExtractExistingFileAction eefa = ExtractExistingFileAction.DoNotOverwrite;
-                if(overwrite)
-                {
-                    eefa = ExtractExistingFileAction.OverwriteSilently;
+                    ExtractExistingFileAction eefa = ExtractExistingFileAction.DoNotOverwrite;
+                    if (overwrite)
+                    {
+                        eefa = ExtractExistingFileAction.OverwriteSilently;
+                    }
+                    ze.Extract(destinationFolder, eefa);
                 }
-                ze.Extract(destinationFolder, eefa);
+                catch(Exception ex)
+                {
+                    Console.WriteLine(string.Format("Unable to extract {0}: {1}", System.IO.Path.GetFileName(fileName), ex.Message));
+                    hasError = true;
+                }
+            }
+
+            if(hasError)
+            {
+                Console.WriteLine();
+                Console.WriteLine("There where errors during the extraction process. If the software is not running as intended please do a manual upgrade!");
             }
         }
     }
