@@ -37,6 +37,10 @@ The autostart is done using the windows scheduler function (logon trigger). Choo
 - No ugly registry settings needed.
 - Can be viewed by the user opening the windows scheduler manager (is inside the root folder called "EveChatNotifier AutoStart").
 
+## Auto updater
+
+Introduced as beta feature with version 2.7.1.0. This function should be able to update your EveChatNotifier with one click. Currently this function is still in beta phase, so please report any errors using the Issue page: https://github.com/MyUncleSam/EveChatNotifier/issues
+
 ## Performance
 
 Eve creates daily new chat log files. So if you are playing regular there could be a lot of chat files in your log folder. As this tool needs to monitor this files this coul lead into heavy CPU and HDD usage. To avoid that you can try:
