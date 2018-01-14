@@ -280,5 +280,38 @@ namespace EveChatNotifier.Properties {
                 this["CheckForUpdates"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("9")]
+        public int ToastFontSizeTitle {
+            get {
+                return ((int)(this["ToastFontSizeTitle"]));
+            }
+            set {
+                this["ToastFontSizeTitle"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("8")]
+        public int ToastFontSizeContent {
+            get {
+                return ((int)(this["ToastFontSizeContent"]));
+            }
+            set {
+                this["ToastFontSizeContent"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("400, 100")]
+        public global::System.Drawing.Size ToastSize {
+            get {
+                return ((global::System.Drawing.Size)(this["ToastSize"]));
+            }
+        }
     }
 }

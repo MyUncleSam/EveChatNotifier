@@ -70,6 +70,7 @@ MaxAgeForWatchingLogs | Only relevant if you do not let the program clean your l
 ToastDelay | How many seconds the default toast notification should stay before it disappears
 LogAllMessages | Logs into the program all detected chat messages (just for debugging purpose)
 Toast...Color | All possible color settings can be modified using default .net color names which can be found e.g. here: http://yorktown.cbe.wwu.edu/sandvig/shared/netcolors.aspx (only names are suppoerted)
+ToastSize | The size of the popup (width; height) - default is 400; 100
 
 ## Download
 

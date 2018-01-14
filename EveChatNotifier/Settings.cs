@@ -77,6 +77,10 @@ namespace EveChatNotifier
                 Logging.WriteLine(string.Format("Error getting autostart enabled state:{0}{1}", Environment.NewLine, ex.ToString()));
                 cbAutoStart.Enabled = false;
             }
+
+            // set font size
+            nudFontSizeTitle.Value = Convert.ToDecimal(Properties.Settings.Default.ToastFontSizeTitle);
+            nudFontSizeContent.Value = Convert.ToDecimal(Properties.Settings.Default.ToastFontSizeContent);
         }
 
         private void cbMoveLog_CheckedChanged(object sender, EventArgs e)
@@ -101,17 +105,17 @@ namespace EveChatNotifier
                 case NotifyOptions.Toast:
                     fileNotifySound.Enabled = false;
                     tbarVolume.Enabled = false;
-                    btnTestVolume.Enabled = false;
+                    btnTest.Enabled = false;
                     break;
                 case NotifyOptions.Sound:
                     fileNotifySound.Enabled = true;
                     tbarVolume.Enabled = true;
-                    btnTestVolume.Enabled = true;
+                    btnTest.Enabled = true;
                     break;
                 case NotifyOptions.Both:
                     fileNotifySound.Enabled = true;
                     tbarVolume.Enabled = true;
-                    btnTestVolume.Enabled = true;
+                    btnTest.Enabled = true;
                     break;
             }
         }
@@ -123,44 +127,7 @@ namespace EveChatNotifier
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.EveChatLogsPath = PathHelper.EncryptedPath(folderEveChatLogs.SelectedFolder);
-            Properties.Settings.Default.LogFile = PathHelper.EncryptedPath(fileLog.SelectedFile);
-            Properties.Settings.Default.MoveOldLogs = cbMoveLog.Checked;
-            Properties.Settings.Default.MoveOldLogsPath = PathHelper.EncryptedPath(folderMoveLogs.SelectedFolder);
-            Properties.Settings.Default.NotifyKeywords = tbNotifyKeywords.Text;
-            Properties.Settings.Default.SoundVolume = tbarVolume.Value;
-            Properties.Settings.Default.CheckForUpdates = cbUpdates.Checked;
-
-            NotifyOptions no = (NotifyOptions)cbNotify.SelectedItem;
-            switch (no)
-            {
-                case NotifyOptions.Toast:
-                    Properties.Settings.Default.ShowToast = true;
-                    Properties.Settings.Default.SoundFilePath = null;
-                    break;
-                case NotifyOptions.Sound:
-                    Properties.Settings.Default.ShowToast = false;
-                    Properties.Settings.Default.SoundFilePath = PathHelper.EncryptedPath(fileNotifySound.SelectedFile);
-                    break;
-                case NotifyOptions.Both:
-                    Properties.Settings.Default.ShowToast = true;
-                    Properties.Settings.Default.SoundFilePath = PathHelper.EncryptedPath(fileNotifySound.SelectedFile);
-                    break;
-            }
-            
-            Properties.Settings.Default.Save();
-
-            if(cbAutoStart.Enabled)
-            {
-                try
-                {
-                    Autostart.ManageAutostart.Instance.Enabled = cbAutoStart.Checked;
-                }
-                catch (Exception ex)
-                {
-                    Logging.WriteLine(string.Format("Error changing autostart enabled:{0}{1}", Environment.NewLine, ex.ToString()));
-                }
-            }
+            SaveChanges();
 
             // restart the application to apply all new settings
             Application.Restart();
@@ -219,29 +186,61 @@ namespace EveChatNotifier
             tbHelp.Text = string.Format("If you want this program can add itselfe to autostart by checking this box.{0}Please enable 'move old logs' to avoid high cpu and hdd usage of this tool!", Environment.NewLine);
         }
 
+        private void fontSize_MouseEnter(object sender, EventArgs e)
+        {
+            tbHelp.Text = string.Format("Choose a font size between 6 and 30 points.");
+        }
+
         private void btnTestVolume_Click(object sender, EventArgs e)
         {
-            if(string.IsNullOrWhiteSpace(fileNotifySound.SelectedFile))
+            SaveChanges();
+            Properties.Settings.Default.Reload();
+
+            Notifier.GetInstance().StopPlayback();
+            Notifier.GetInstance().Notify("Test User in 'Alliance'", "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.", fileNotifySound.SelectedFile);
+        }
+
+        private void SaveChanges()
+        {
+            Properties.Settings.Default.EveChatLogsPath = PathHelper.EncryptedPath(folderEveChatLogs.SelectedFolder);
+            Properties.Settings.Default.LogFile = PathHelper.EncryptedPath(fileLog.SelectedFile);
+            Properties.Settings.Default.MoveOldLogs = cbMoveLog.Checked;
+            Properties.Settings.Default.MoveOldLogsPath = PathHelper.EncryptedPath(folderMoveLogs.SelectedFolder);
+            Properties.Settings.Default.NotifyKeywords = tbNotifyKeywords.Text;
+            Properties.Settings.Default.SoundVolume = tbarVolume.Value;
+            Properties.Settings.Default.CheckForUpdates = cbUpdates.Checked;
+            Properties.Settings.Default.ToastFontSizeTitle = Convert.ToInt32(nudFontSizeTitle.Value);
+            Properties.Settings.Default.ToastFontSizeContent = Convert.ToInt32(nudFontSizeContent.Value);
+
+            NotifyOptions no = (NotifyOptions)cbNotify.SelectedItem;
+            switch (no)
             {
-                MessageBox.Show("Please choose a sound file first!", "Choose sound", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-                return;
+                case NotifyOptions.Toast:
+                    Properties.Settings.Default.ShowToast = true;
+                    Properties.Settings.Default.SoundFilePath = null;
+                    break;
+                case NotifyOptions.Sound:
+                    Properties.Settings.Default.ShowToast = false;
+                    Properties.Settings.Default.SoundFilePath = PathHelper.EncryptedPath(fileNotifySound.SelectedFile);
+                    break;
+                case NotifyOptions.Both:
+                    Properties.Settings.Default.ShowToast = true;
+                    Properties.Settings.Default.SoundFilePath = PathHelper.EncryptedPath(fileNotifySound.SelectedFile);
+                    break;
             }
 
-            try
+            Properties.Settings.Default.Save();
+
+            if (cbAutoStart.Enabled)
             {
-                if(wp.PlaybackState != PlaybackState.Stopped)
+                try
                 {
-                    wp.Stop();
+                    Autostart.ManageAutostart.Instance.Enabled = cbAutoStart.Checked;
                 }
-
-                AudioFileReader afr = new AudioFileReader(fileNotifySound.SelectedFile);
-                afr.Volume = Convert.ToSingle(tbarVolume.Value / 100.0);
-                wp.Init(afr);
-                wp.Play();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(string.Format("Unable to play sound file:{0}{1}", Environment.NewLine, ex.Message), "Unable to play sound file", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                catch (Exception ex)
+                {
+                    Logging.WriteLine(string.Format("Error changing autostart enabled:{0}{1}", Environment.NewLine, ex.ToString()));
+                }
             }
         }
     }

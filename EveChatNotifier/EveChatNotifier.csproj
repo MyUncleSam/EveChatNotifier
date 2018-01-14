@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Autostart\ManageAutostart.cs" />
+    <Compile Include="Notifier.cs" />
     <Compile Include="Updater\GithubRelease.cs" />
     <Compile Include="HelperControls\FileChooser.cs">
       <SubType>UserControl</SubType>

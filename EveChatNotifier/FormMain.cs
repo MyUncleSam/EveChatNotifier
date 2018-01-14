@@ -8,9 +8,6 @@ using System.Linq;
 using System.Media;
 using System.Text;
 using System.Windows.Forms;
-using NAudio;
-using NAudio.Wave;
-using Tulpep.NotificationWindow;
 
 namespace EveChatNotifier
 {
@@ -19,9 +16,7 @@ namespace EveChatNotifier
         private Timer t = new Timer();
         private List<LogFile> _LogFiles = new List<LogFile>();
         private DateTime lastNotified = DateTime.Now;
-        private PopupNotifier Notifier = new PopupNotifier();
         private Settings _Settings = null;
-        private IWavePlayer wp = new WaveOut();
 
         private string PathEveChatLogs;
         private string PathMoveOldLogs;
@@ -107,24 +102,6 @@ namespace EveChatNotifier
                     }
                 }
             }
-
-            // popup notifier settings
-            Notifier.IsRightToLeft = false;
-            Notifier.ShowCloseButton = true;
-            Notifier.ShowGrip = false;
-            Notifier.Image = Properties.Resources.eve_logo_landing2;
-
-            Notifier.Delay = Properties.Settings.Default.ToastDelay;
-            Notifier.AnimationDuration = 500;
-
-            Notifier.BodyColor = Properties.Settings.Default.ToastBodyColor;
-            Notifier.BorderColor = Properties.Settings.Default.ToastBorderColor;
-            Notifier.ContentColor = Properties.Settings.Default.ToastContentColor;
-            Notifier.ContentHoverColor = Properties.Settings.Default.ToastContentHoverColor;
-            Notifier.HeaderColor = Properties.Settings.Default.ToastHeaderColor;
-            Notifier.TitleColor = Properties.Settings.Default.ToastTitleColor;
-            
-            Notifier.Click += Notifier_Click;
 
             Logging.WriteLine("Starting chat notifier.");
 
@@ -286,6 +263,7 @@ namespace EveChatNotifier
                         if(le.Text.ToLower().Contains(toCheck.Trim().ToLower()))
                         {
                             needsNotify = true;
+                            break;
                         }
                     }
                 }
@@ -294,73 +272,9 @@ namespace EveChatNotifier
                 if (needsNotify) // isPlaying is managing the notification using sound (only one at a time)
                 {
                     Logging.WriteLine(string.Format("{3}: Notify for chat message of '{0}' in '{1}': {2}", le.Sender, curLog.LogInfo.ChannelName, le.Text, curLog.LogInfo.PilotName));
-
-                    if (string.IsNullOrWhiteSpace(PathSoundFile) || Properties.Settings.Default.ShowToast)
-                    {
-                        if ((DateTime.Now - lastNotified).TotalSeconds > 1)
-                        {
-                            lastNotified = DateTime.Now;
-                            // send notification
-                            //notifyIcon.ShowBalloonTip(10000, "[EVE] chat notification", string.Format("[{0}] {1}: {2}", curLog.LogInfo.ChannelName, le.Sender, le.Text), ToolTipIcon.Info);
-
-                            
-
-                            Notifier.TitleText = string.Format("{0} in '{1}'", le.Sender, curLog.LogInfo.ChannelName);
-                            Notifier.ContentText = le.Text;
-                            
-
-                            Notifier.Popup();
-                        }
-                    }
-
-                    // send sound alert
-                    if (!string.IsNullOrWhiteSpace(PathSoundFile))
-                    {
-                        try
-                        {
-                            if(wp.PlaybackState == PlaybackState.Stopped)
-                            {
-                                // try playing the file
-                                AudioFileReader afr = new AudioFileReader(PathSoundFile);
-                                afr.Volume = Convert.ToSingle(Properties.Settings.Default.SoundVolume / 100.0);
-                                wp.Init(afr);
-                                wp.Play();
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Logging.WriteLine(string.Format("Unable to play sound file '{0}' - removing sound file:{1}{2}", PathSoundFile, Environment.NewLine, ex.ToString()));
-
-                            // fallback to windows sounds if we are unable to play the given sound file
-                            Properties.Settings.Default.SoundFilePath = null;
-                            Properties.Settings.Default.Save();
-                            Properties.Settings.Default.Reload();
-                        }
-                    }
+                    Notifier.GetInstance().Notify(string.Format("{0} in '{1}'", le.Sender, curLog.LogInfo.ChannelName), le.Text);
                 }
             }
-        }
-
-        private void Notifier_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                PopupNotifier pn = (PopupNotifier)sender;
-                pn.Hide();
-
-                try
-                {
-                    if(wp.PlaybackState != PlaybackState.Stopped)
-                    {
-                        wp.Stop();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Logging.WriteLine(string.Format("Unable to stop playback of sound file: {0}", ex.ToString()));
-                }
-            }
-            catch { }
         }
 
         private void notifyIcon_DoubleClick(object sender, EventArgs e)
