@@ -300,7 +300,7 @@ namespace EveChatNotifier
                 string updateUrl = "https://raw.githubusercontent.com/MyUncleSam/EveChatNotifier/master/EveChatNotifier/AutoUpdate/AutoUpdater.xml";
 #endif
                 
-                AutoUpdater.ShowRemindLaterButton = false;
+                AutoUpdater.ShowRemindLaterButton = true;
                 AutoUpdater.ReportErrors = false;
                 AutoUpdater.Mandatory = false;
                 AutoUpdater.ShowSkipButton = true;
