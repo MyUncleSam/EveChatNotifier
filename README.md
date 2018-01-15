@@ -75,6 +75,7 @@ ToastDelay | How many seconds the default toast notification should stay before 
 LogAllMessages | Logs into the program all detected chat messages (just for debugging purpose)
 Toast...Color | All possible color settings can be modified using default .net color names which can be found e.g. here: http://yorktown.cbe.wwu.edu/sandvig/shared/netcolors.aspx (only names are suppoerted)
 ToastSize | The size of the popup (width; height) - default is 400; 100
+AutoUpdateManually | If set to true and if AutoUpdate is enabled the program is going to open the release page instead of doing the update automatically (if user choose to update)
 
 ## Download
 
