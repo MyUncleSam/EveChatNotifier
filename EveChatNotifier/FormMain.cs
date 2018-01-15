@@ -8,6 +8,7 @@ using System.Linq;
 using System.Media;
 using System.Text;
 using System.Windows.Forms;
+using AutoUpdaterDotNET;
 
 namespace EveChatNotifier
 {
@@ -31,12 +32,6 @@ namespace EveChatNotifier
                 Properties.Settings.Default.NeedsUpgrade = false;
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
-            }
-            
-            // check for new version
-            if(Properties.Settings.Default.CheckForUpdates)
-            {
-                Updater.GithubUpdateChecker.VersionCheckasync("MyUncleSam", "EveChatNotifier");
             }
 
             // bugfix for empty paths
@@ -294,6 +289,39 @@ namespace EveChatNotifier
         private void FormMain_Shown(object sender, EventArgs e)
         {
             this.Hide();
+
+            // check for new version
+            if (Properties.Settings.Default.CheckForUpdates)
+            {
+#if DEBUG
+                string updateUrl = "https://raw.githubusercontent.com/MyUncleSam/EveChatNotifier/master/AutoUpdate/TestUpdate.xml";
+#else
+                string updateUrl = "https://raw.githubusercontent.com/MyUncleSam/EveChatNotifier/master/AutoUpdate/AutoUpdater.xml";
+#endif
+
+                AutoUpdater.CheckForUpdateEvent += AutoUpdater_CheckForUpdateEvent;
+                AutoUpdater.ApplicationExitEvent += AutoUpdater_ApplicationExitEvent;
+
+                //AutoUpdater.OpenDownloadPage = Properties.Settings.Default.AutoUpdateManually;
+                AutoUpdater.ShowRemindLaterButton = false;
+                AutoUpdater.ReportErrors = false;
+                AutoUpdater.Mandatory = false;
+                AutoUpdater.ShowSkipButton = true;
+                AutoUpdater.Start(updateUrl);
+            }
+        }
+
+        private void AutoUpdater_ApplicationExitEvent()
+        {
+            Logging.WriteLine("AutoUpdater is exiting the application to continue the update procedure.");
+        }
+
+        private void AutoUpdater_CheckForUpdateEvent(UpdateInfoEventArgs args)
+        {
+            if(args != null && args.IsUpdateAvailable)
+            {
+                Logging.WriteLine(string.Format("Updatge available, showing user the dialog to update the version {0} to the newest version {1} - update dialog is going to be shown.", args.InstalledVersion.ToString(), args.CurrentVersion.ToString()));
+            }
         }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)

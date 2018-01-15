@@ -313,5 +313,14 @@ namespace EveChatNotifier.Properties {
                 return ((global::System.Drawing.Size)(this["ToastSize"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutoUpdateManually {
+            get {
+                return ((bool)(this["AutoUpdateManually"]));
+            }
+        }
     }
 }
