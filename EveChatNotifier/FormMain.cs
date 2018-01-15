@@ -294,9 +294,9 @@ namespace EveChatNotifier
             if (Properties.Settings.Default.CheckForUpdates)
             {
 #if DEBUG
-                string updateUrl = "https://raw.githubusercontent.com/MyUncleSam/EveChatNotifier/master/AutoUpdate/TestUpdate.xml";
+                string updateUrl = "https://raw.githubusercontent.com/MyUncleSam/EveChatNotifier/master/EveChatNotifier/AutoUpdate/TestUpdate.xml";
 #else
-                string updateUrl = "https://raw.githubusercontent.com/MyUncleSam/EveChatNotifier/master/AutoUpdate/AutoUpdater.xml";
+                string updateUrl = "https://raw.githubusercontent.com/MyUncleSam/EveChatNotifier/master/EveChatNotifier/AutoUpdate/AutoUpdater.xml";
 #endif
 
                 AutoUpdater.CheckForUpdateEvent += AutoUpdater_CheckForUpdateEvent;
