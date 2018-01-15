@@ -3,5 +3,5 @@
   <version>2.8.1.0</version>
   <url>https://github.com/MyUncleSam/EveChatNotifier/releases/download/2.8.1.0/EveChatNotifier.2.8.1.0.zip</url>
   <changelog>https://github.com/MyUncleSam/EveChatNotifier/releases</changelog>
-  <mandatory>false</mandatory>
+  <mandatory>true</mandatory>
 </item>
