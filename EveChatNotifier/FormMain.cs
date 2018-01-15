@@ -293,16 +293,13 @@ namespace EveChatNotifier
             // check for new version
             if (Properties.Settings.Default.CheckForUpdates)
             {
+                Logging.WriteLine("AutoUpdater feature enabled - checking for update in the background.");
 #if DEBUG
                 string updateUrl = "https://raw.githubusercontent.com/MyUncleSam/EveChatNotifier/master/EveChatNotifier/AutoUpdate/TestUpdate.xml";
 #else
                 string updateUrl = "https://raw.githubusercontent.com/MyUncleSam/EveChatNotifier/master/EveChatNotifier/AutoUpdate/AutoUpdater.xml";
 #endif
-
-                AutoUpdater.CheckForUpdateEvent += AutoUpdater_CheckForUpdateEvent;
-                AutoUpdater.ApplicationExitEvent += AutoUpdater_ApplicationExitEvent;
-
-                //AutoUpdater.OpenDownloadPage = Properties.Settings.Default.AutoUpdateManually;
+                
                 AutoUpdater.ShowRemindLaterButton = false;
                 AutoUpdater.ReportErrors = false;
                 AutoUpdater.Mandatory = false;
@@ -310,20 +307,7 @@ namespace EveChatNotifier
                 AutoUpdater.Start(updateUrl);
             }
         }
-
-        private void AutoUpdater_ApplicationExitEvent()
-        {
-            Logging.WriteLine("AutoUpdater is exiting the application to continue the update procedure.");
-        }
-
-        private void AutoUpdater_CheckForUpdateEvent(UpdateInfoEventArgs args)
-        {
-            if(args != null && args.IsUpdateAvailable)
-            {
-                Logging.WriteLine(string.Format("Updatge available, showing user the dialog to update the version {0} to the newest version {1} - update dialog is going to be shown.", args.InstalledVersion.ToString(), args.CurrentVersion.ToString()));
-            }
-        }
-
+        
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             Logging.WriteLine("Stopping chat notifier.");
