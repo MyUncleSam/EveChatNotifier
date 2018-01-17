@@ -133,6 +133,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AutoUpdate\AutoUpdater.xml" />
     <Content Include="License.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
