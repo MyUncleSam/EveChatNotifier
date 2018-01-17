@@ -293,18 +293,19 @@ namespace EveChatNotifier
             // check for new version
             if (Properties.Settings.Default.CheckForUpdates)
             {
-                Logging.WriteLine("AutoUpdater feature enabled - checking for update in the background.");
-#if DEBUG
-                string updateUrl = "https://raw.githubusercontent.com/MyUncleSam/EveChatNotifier/master/EveChatNotifier/AutoUpdate/TestUpdate.xml";
-#else
-                string updateUrl = "https://raw.githubusercontent.com/MyUncleSam/EveChatNotifier/master/EveChatNotifier/AutoUpdate/AutoUpdater.xml";
-#endif
+                Github.GithubUpdateCheck.UpdateUsingLocalXmlFile("MyUncleSam", "EveChatNotifier");
+//                Logging.WriteLine("AutoUpdater feature enabled - checking for update in the background.");
+//#if DEBUG
+//                string updateUrl = "https://raw.githubusercontent.com/MyUncleSam/EveChatNotifier/master/EveChatNotifier/AutoUpdate/TestUpdate.xml";
+//#else
+//                string updateUrl = "https://raw.githubusercontent.com/MyUncleSam/EveChatNotifier/master/EveChatNotifier/AutoUpdate/AutoUpdater.xml";
+//#endif
                 
-                AutoUpdater.ShowRemindLaterButton = true;
-                AutoUpdater.ReportErrors = false;
-                AutoUpdater.Mandatory = false;
-                AutoUpdater.ShowSkipButton = true;
-                AutoUpdater.Start(updateUrl);
+//                AutoUpdater.ShowRemindLaterButton = true;
+//                AutoUpdater.ReportErrors = false;
+//                AutoUpdater.Mandatory = false;
+//                AutoUpdater.ShowSkipButton = true;
+//                AutoUpdater.Start(updateUrl);
             }
         }
         
