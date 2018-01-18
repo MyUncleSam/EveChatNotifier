@@ -310,7 +310,7 @@ namespace EveChatNotifier
             // check for new version
             if (Properties.Settings.Default.CheckForUpdates)
             {
-                Github.GithubUpdateCheck.UpdateUsingLocalXmlFile("MyUncleSam", "EveChatNotifier");
+                Github.GithubUpdateCheck.UpdateUsingLocalXmlFile("MyUncleSam", "EveChatNotifier", Properties.Settings.Default.SoundFilePath);
             }
         }
         
