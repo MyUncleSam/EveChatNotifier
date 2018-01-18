@@ -80,11 +80,12 @@ namespace EveChatNotifier.Github
                     AutoUpdater.Start(updateUrl);
                 }
 
-                try
-                {
-                    System.IO.File.Delete(updateUrl);
-                }
-                catch { }
+                // we cannot delete the xml file because we have no idea when the check is done by the auto updater
+                //try
+                //{
+                //    System.IO.File.Delete(updateUrl);
+                //}
+                //catch { }
             }
             catch (Exception ex)
             {
