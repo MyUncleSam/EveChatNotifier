@@ -118,10 +118,17 @@ namespace EveChatNotifier
             MenuItem cmSettings = new MenuItem("Settings");
             MenuItem cmHomepage = new MenuItem("Homepage");
             MenuItem cmVersion = new MenuItem(string.Format("v{0}", Application.ProductVersion));
+            MenuItem cmCheckUpdate = new MenuItem("Check for update");
 
             // version
             cmVersion.Enabled = false;
             cm.MenuItems.Add(cmVersion);
+
+            // auto update check
+            cmCheckUpdate.Click += CmCheckUpdate_Click;
+            cm.MenuItems.Add(cmCheckUpdate);
+
+            cm.MenuItems.Add("-");
 
             // settings
             cmSettings.Click += CmSettings_Click;
@@ -148,6 +155,12 @@ namespace EveChatNotifier
             {
                 Logging.WriteLine(string.Format("Error checking for autostart:{0}{1}", Environment.NewLine, ex.ToString()));
             }
+        }
+
+        private void CmCheckUpdate_Click(object sender, EventArgs e)
+        {
+            Notifier.GetInstance().Notify("Update check", "Checking for update - if there is a new version you get a new window appears leading your throught the update process.");
+            CheckForUpdate();
         }
 
         private void CmHomepage_Click(object sender, EventArgs e)
@@ -289,28 +302,34 @@ namespace EveChatNotifier
         private void FormMain_Shown(object sender, EventArgs e)
         {
             this.Hide();
+            CheckForUpdate();
+        }
 
+        public void CheckForUpdate()
+        {
             // check for new version
             if (Properties.Settings.Default.CheckForUpdates)
             {
                 Github.GithubUpdateCheck.UpdateUsingLocalXmlFile("MyUncleSam", "EveChatNotifier");
-//                Logging.WriteLine("AutoUpdater feature enabled - checking for update in the background.");
-//#if DEBUG
-//                string updateUrl = "https://raw.githubusercontent.com/MyUncleSam/EveChatNotifier/master/EveChatNotifier/AutoUpdate/TestUpdate.xml";
-//#else
-//                string updateUrl = "https://raw.githubusercontent.com/MyUncleSam/EveChatNotifier/master/EveChatNotifier/AutoUpdate/AutoUpdater.xml";
-//#endif
-                
-//                AutoUpdater.ShowRemindLaterButton = true;
-//                AutoUpdater.ReportErrors = false;
-//                AutoUpdater.Mandatory = false;
-//                AutoUpdater.ShowSkipButton = true;
-//                AutoUpdater.Start(updateUrl);
             }
         }
         
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Logging.WriteLine("Cleanup ...");
+            foreach (string file in Cleanup.GetInstance().FilesToDelete)
+            {
+                try
+                {
+                    Logging.WriteLine(string.Format("Deleting file '{0}'", file));
+                    System.IO.File.Delete(file);
+                }
+                catch(Exception ex)
+                {
+                    Logging.WriteLine(string.Format("Unable to delete file: {0}", ex.Message));
+                }
+            }
+
             Logging.WriteLine("Stopping chat notifier.");
             Properties.Settings.Default.Save();
         }

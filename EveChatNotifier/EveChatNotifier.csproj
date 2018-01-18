@@ -63,6 +63,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Autostart\ManageAutostart.cs" />
+    <Compile Include="Cleanup.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="GithubUpdater\GithubRelease.cs" />
     <Compile Include="GithubUpdater\GithubUpdateCheck.cs" />
     <Compile Include="GithubUpdater\UpdaterXml.cs" />

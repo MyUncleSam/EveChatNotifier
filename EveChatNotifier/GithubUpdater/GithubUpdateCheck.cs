@@ -60,6 +60,9 @@ namespace EveChatNotifier.Github
                     updateUrl = System.IO.Path.Combine(System.IO.Path.GetTempPath(), string.Format("{0}.xml", Guid.NewGuid().ToString("N")));
                 } while (System.IO.File.Exists(updateUrl));
 
+                // add file to cleanup job
+                Cleanup.GetInstance().FilesToDelete.AddIfNotExist<string>(updateUrl);
+
                 // serialize to file
                 using (TextWriter writer = new StreamWriter(updateUrl, false))
                 {
