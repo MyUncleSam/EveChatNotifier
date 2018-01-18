@@ -280,7 +280,7 @@ namespace EveChatNotifier
                 if (needsNotify) // isPlaying is managing the notification using sound (only one at a time)
                 {
                     Logging.WriteLine(string.Format("{3}: Notify for chat message of '{0}' in '{1}': {2}", le.Sender, curLog.LogInfo.ChannelName, le.Text, curLog.LogInfo.PilotName));
-                    Notifier.GetInstance().Notify(string.Format("{0} in '{1}'", le.Sender, curLog.LogInfo.ChannelName), le.Text, Properties.Settings.Default.SoundFilePath);
+                    Notifier.GetInstance().Notify(string.Format("{0} in '{1}'", le.Sender, curLog.LogInfo.ChannelName), le.Text, PathHelper.DecryptPath(Properties.Settings.Default.SoundFilePath));
                 }
             }
         }
@@ -310,7 +310,7 @@ namespace EveChatNotifier
             // check for new version
             if (Properties.Settings.Default.CheckForUpdates)
             {
-                Github.GithubUpdateCheck.UpdateUsingLocalXmlFile("MyUncleSam", "EveChatNotifier", Properties.Settings.Default.SoundFilePath);
+                Github.GithubUpdateCheck.UpdateUsingLocalXmlFile("MyUncleSam", "EveChatNotifier");
             }
         }
         
