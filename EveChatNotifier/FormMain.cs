@@ -257,6 +257,18 @@ namespace EveChatNotifier
                     continue;
                 }
 
+                // check if sender is current user (ignore if user wants to ignore this messages)
+                if(Properties.Settings.Default.IgnoreOwnMessages && le.Sender.Equals(curLog.LogInfo.PilotName, StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
+                // check if sender is "EVE-System" to prevent MOTD notifications
+                if(Properties.Settings.Default.IgnoreMotd && le.Sender.Equals("EVE-System", StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
                 // check if notification is needed
                 bool needsNotify = false;
                 if(le.Text.ToLower().Contains(curLog.LogInfo.PilotName.ToLower()))

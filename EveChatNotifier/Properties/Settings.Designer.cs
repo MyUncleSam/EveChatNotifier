@@ -322,5 +322,29 @@ namespace EveChatNotifier.Properties {
                 return ((bool)(this["AutoUpdateManually"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IgnoreMotd {
+            get {
+                return ((bool)(this["IgnoreMotd"]));
+            }
+            set {
+                this["IgnoreMotd"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IgnoreOwnMessages {
+            get {
+                return ((bool)(this["IgnoreOwnMessages"]));
+            }
+            set {
+                this["IgnoreOwnMessages"] = value;
+            }
+        }
     }
 }

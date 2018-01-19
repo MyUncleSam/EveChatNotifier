@@ -81,6 +81,10 @@ namespace EveChatNotifier
             // set font size
             nudFontSizeTitle.Value = Convert.ToDecimal(Properties.Settings.Default.ToastFontSizeTitle);
             nudFontSizeContent.Value = Convert.ToDecimal(Properties.Settings.Default.ToastFontSizeContent);
+
+            // set ignore motd and ignore own messages
+            cbIgnoreMotd.Checked = Properties.Settings.Default.IgnoreMotd;
+            cbIgnoreOwn.Checked = Properties.Settings.Default.IgnoreOwnMessages;
         }
 
         private void cbMoveLog_CheckedChanged(object sender, EventArgs e)
@@ -191,6 +195,16 @@ namespace EveChatNotifier
             tbHelp.Text = string.Format("Choose a font size between 6 and 30 points.");
         }
 
+        private void ignoreMotd_MouseEnter(object sender, EventArgs e)
+        {
+            tbHelp.Text = string.Format("If you set the MOTD you get informed every time your client starts. This ignores all messages from user 'EVE-System'.");
+        }
+
+        private void ignoreOwnMessages(object sender, EventArgs e)
+        {
+            tbHelp.Text = string.Format("This ignores all messages which are sent from the logged in user. This only affects each pilot itselfe.");
+        }
+
         private void btnTestVolume_Click(object sender, EventArgs e)
         {
             SaveChanges();
@@ -211,6 +225,8 @@ namespace EveChatNotifier
             Properties.Settings.Default.CheckForUpdates = cbUpdates.Checked;
             Properties.Settings.Default.ToastFontSizeTitle = Convert.ToInt32(nudFontSizeTitle.Value);
             Properties.Settings.Default.ToastFontSizeContent = Convert.ToInt32(nudFontSizeContent.Value);
+            Properties.Settings.Default.IgnoreMotd = cbIgnoreMotd.Checked;
+            Properties.Settings.Default.IgnoreOwnMessages = cbIgnoreOwn.Checked;
 
             NotifyOptions no = (NotifyOptions)cbNotify.SelectedItem;
             switch (no)
