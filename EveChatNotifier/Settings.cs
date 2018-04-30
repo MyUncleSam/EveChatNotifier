@@ -67,6 +67,9 @@ namespace EveChatNotifier
             // set update check
             cbUpdates.Checked = Properties.Settings.Default.CheckForUpdates;
 
+			// set motd username
+			tbMotdUsername.Text = Properties.Settings.Default.MotdUsername;
+
             // set autostart object
             try
             {
@@ -197,7 +200,7 @@ namespace EveChatNotifier
 
         private void ignoreMotd_MouseEnter(object sender, EventArgs e)
         {
-            tbHelp.Text = string.Format("If you set the MOTD you get informed every time your client starts. This ignores all messages from user 'EVE-System'.");
+            tbHelp.Text = string.Format("If you set the MOTD you get informed every time your client starts (see 'MOTD Username').");
         }
 
         private void ignoreOwnMessages(object sender, EventArgs e)
@@ -205,7 +208,12 @@ namespace EveChatNotifier
             tbHelp.Text = string.Format("This ignores all messages which are sent from the logged in user. This only affects each pilot itselfe.");
         }
 
-        private void btnTestVolume_Click(object sender, EventArgs e)
+		private void motdUserName(object sender, EventArgs e)
+		{
+			tbHelp.Text = string.Format("MOTD can only be detected by username. It should be something like 'EVE-System'. Check the log files to get the correct one.");
+		}
+
+		private void btnTestVolume_Click(object sender, EventArgs e)
         {
             SaveChanges();
             Properties.Settings.Default.Reload();
@@ -227,6 +235,7 @@ namespace EveChatNotifier
             Properties.Settings.Default.ToastFontSizeContent = Convert.ToInt32(nudFontSizeContent.Value);
             Properties.Settings.Default.IgnoreMotd = cbIgnoreMotd.Checked;
             Properties.Settings.Default.IgnoreOwnMessages = cbIgnoreOwn.Checked;
+			Properties.Settings.Default.MotdUsername = tbMotdUsername.Text;
 
             NotifyOptions no = (NotifyOptions)cbNotify.SelectedItem;
             switch (no)
@@ -259,5 +268,5 @@ namespace EveChatNotifier
                 }
             }
         }
-    }
+	}
 }

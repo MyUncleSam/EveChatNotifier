@@ -12,6 +12,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #######################
 
+Icons:
+
+TrayIcon: https://findicons.com/icon/237957/preferences_desktop_notification_bell
+GNU/GPL: https://www.gnu.org/licenses/ (no detail information which one)
+
+#######################
+
 notify.mp3:
 http://soundbible.com/2156-Text-Message-Alert-3.html
 

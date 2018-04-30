@@ -346,5 +346,17 @@ namespace EveChatNotifier.Properties {
                 this["IgnoreOwnMessages"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("EVE-System")]
+        public string MotdUsername {
+            get {
+                return ((string)(this["MotdUsername"]));
+            }
+            set {
+                this["MotdUsername"] = value;
+            }
+        }
     }
 }

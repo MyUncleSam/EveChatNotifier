@@ -264,7 +264,7 @@ namespace EveChatNotifier
                 }
 
                 // check if sender is "EVE-System" to prevent MOTD notifications
-                if(Properties.Settings.Default.IgnoreMotd && le.Sender.Equals("EVE-System", StringComparison.OrdinalIgnoreCase))
+                if(Properties.Settings.Default.IgnoreMotd && le.Sender.Equals(Properties.Settings.Default.MotdUsername.Trim(), StringComparison.OrdinalIgnoreCase))
                 {
                     continue;
                 }

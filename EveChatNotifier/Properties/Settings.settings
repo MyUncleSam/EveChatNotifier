@@ -95,5 +95,8 @@
     <Setting Name="IgnoreOwnMessages" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="MotdUsername" Type="System.String" Scope="User">
+      <Value Profile="(Default)">EVE-System</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

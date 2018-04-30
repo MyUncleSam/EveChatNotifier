@@ -69,5 +69,15 @@ namespace EveChatNotifier.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Icon ähnlich wie (Symbol).
+        /// </summary>
+        internal static System.Drawing.Icon preferences_desktop_notification_bell {
+            get {
+                object obj = ResourceManager.GetObject("preferences_desktop_notification_bell", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }

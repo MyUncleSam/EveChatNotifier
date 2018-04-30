@@ -68,6 +68,8 @@
     <Compile Include="GithubUpdater\GithubRelease.cs" />
     <Compile Include="GithubUpdater\GithubUpdateCheck.cs" />
     <Compile Include="GithubUpdater\UpdaterXml.cs" />
+    <Compile Include="IdleDetector\LastInput.cs" />
+    <Compile Include="NotificationIcon.cs" />
     <Compile Include="Notifier.cs" />
     <Compile Include="HelperControls\FileChooser.cs">
       <SubType>UserControl</SubType>
@@ -100,6 +102,12 @@
     <Compile Include="Settings.Designer.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
+    <Compile Include="ShowAllNotifications.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowAllNotifications.Designer.cs">
+      <DependentUpon>ShowAllNotifications.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="HelperControls\FileChooser.resx">
       <DependentUpon>FileChooser.cs</DependentUpon>
     </EmbeddedResource>
@@ -121,6 +129,9 @@
     </Compile>
     <EmbeddedResource Include="Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShowAllNotifications.resx">
+      <DependentUpon>ShowAllNotifications.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />
