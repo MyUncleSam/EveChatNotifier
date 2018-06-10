@@ -52,12 +52,15 @@ namespace EveChatNotifier
         /// <param name="soundFile">null/empty if no sound should be played</param>
         public void Notify(string title, string message, string soundFile)
         {
-            PopupNotifier pn = CreateNotify();
-            pn.TitleText = title;
-            pn.ContentText = message;
-            pn.Size = Properties.Settings.Default.ToastSize;
-            pn.Popup();
-
+			if(Properties.Settings.Default.ShowToast)
+			{
+				PopupNotifier pn = CreateNotify();
+				pn.TitleText = title;
+				pn.ContentText = message;
+				pn.Size = Properties.Settings.Default.ToastSize;
+				pn.Popup();
+			}
+            
             // send audio notification
             if(!string.IsNullOrWhiteSpace(soundFile))
             {
