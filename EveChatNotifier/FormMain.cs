@@ -234,6 +234,13 @@ namespace EveChatNotifier
         private void NewChatLines(object sender, LogFile.EveChatEventArgs e)
         {
             LogFile curLog = (LogFile)sender;
+
+			// check for channel ignore list
+			if(IsIgnoredChannel(curLog))
+			{
+				return;
+			}
+
             string logLines = e.NewLogLines;
 
             // check log lines - line for line
@@ -262,6 +269,12 @@ namespace EveChatNotifier
                 {
                     continue;
                 }
+
+				// check if the sender is on the ignore list
+				if(IsIgnoredPilot(le))
+				{
+					continue;
+				}
 
                 // check if sender is "EVE-System" to prevent MOTD notifications
                 if(Properties.Settings.Default.IgnoreMotd && le.Sender.Equals(Properties.Settings.Default.MotdUsername.Trim(), StringComparison.OrdinalIgnoreCase))
@@ -296,6 +309,38 @@ namespace EveChatNotifier
                 }
             }
         }
+
+		/// <summary>
+		/// check if the current logfile is on the ignore list for channels
+		/// </summary>
+		/// <param name="lf"></param>
+		/// <returns></returns>
+		public bool IsIgnoredChannel(LogFile lf)
+		{
+			if(string.IsNullOrWhiteSpace(Properties.Settings.Default.IgnoreChannels))
+			{
+				return false;
+			}
+
+			string[] ignoreChannels = Properties.Settings.Default.IgnoreChannels.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+			return ignoreChannels.Any(a => a.Trim().Equals(lf.LogInfo.ChannelName, StringComparison.OrdinalIgnoreCase));
+		}
+
+		/// <summary>
+		/// check if the sender is on the ignore list
+		/// </summary>
+		/// <param name="le"></param>
+		/// <returns></returns>
+		public bool IsIgnoredPilot(LogEntry le)
+		{
+			if(string.IsNullOrWhiteSpace(Properties.Settings.Default.IgnorePilots))
+			{
+				return false;
+			}
+
+			string[] ignorePilots = Properties.Settings.Default.IgnorePilots.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+			return ignorePilots.Any(a => a.Trim().Equals(le.Sender.Trim(), StringComparison.OrdinalIgnoreCase));
+		}
 
         private void notifyIcon_DoubleClick(object sender, EventArgs e)
         {

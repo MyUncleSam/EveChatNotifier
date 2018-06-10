@@ -70,6 +70,10 @@ namespace EveChatNotifier
 			// set motd username
 			tbMotdUsername.Text = Properties.Settings.Default.MotdUsername;
 
+			// set ignore pilot and channel
+			tbIgnoreChannels.Text = Properties.Settings.Default.IgnoreChannels;
+			tbIgnorePilots.Text = Properties.Settings.Default.IgnorePilots;
+
             // set autostart object
             try
             {
@@ -236,6 +240,8 @@ namespace EveChatNotifier
             Properties.Settings.Default.IgnoreMotd = cbIgnoreMotd.Checked;
             Properties.Settings.Default.IgnoreOwnMessages = cbIgnoreOwn.Checked;
 			Properties.Settings.Default.MotdUsername = tbMotdUsername.Text;
+			Properties.Settings.Default.IgnoreChannels = tbIgnoreChannels.Text;
+			Properties.Settings.Default.IgnorePilots = tbIgnorePilots.Text;
 
             NotifyOptions no = (NotifyOptions)cbNotify.SelectedItem;
             switch (no)
@@ -268,5 +274,15 @@ namespace EveChatNotifier
                 }
             }
         }
+
+		private void lblIgnorePilots_MouseEnter(object sender, EventArgs e)
+		{
+			tbHelp.Text = string.Format("Here you can specify pilotnames (sender) which are ignored for notification. Please seperate them using ',' - not case sensitive.");
+		}
+
+		private void lblIgnoreChannels_MouseEnter(object sender, EventArgs e)
+		{
+			tbHelp.Text = string.Format("Here you can specify channelname which are ignored for notification. Please seperate them using ',' - not case sensitive.");
+		}
 	}
 }

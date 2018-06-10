@@ -98,5 +98,11 @@
     <Setting Name="MotdUsername" Type="System.String" Scope="User">
       <Value Profile="(Default)">EVE-System</Value>
     </Setting>
+    <Setting Name="IgnorePilots" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="IgnoreChannels" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

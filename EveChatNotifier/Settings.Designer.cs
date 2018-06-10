@@ -52,6 +52,8 @@
 			this.lblNotifyOption = new System.Windows.Forms.Label();
 			this.cbNotify = new System.Windows.Forms.ComboBox();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.tbMotdUsername = new System.Windows.Forms.TextBox();
+			this.lblMotdUsername = new System.Windows.Forms.Label();
 			this.cbIgnoreOwn = new System.Windows.Forms.CheckBox();
 			this.lblIgnoreOwn = new System.Windows.Forms.Label();
 			this.cbIgnoreMotd = new System.Windows.Forms.CheckBox();
@@ -64,8 +66,11 @@
 			this.lblAutostart = new System.Windows.Forms.Label();
 			this.cbUpdates = new System.Windows.Forms.CheckBox();
 			this.lblUpdateCheck = new System.Windows.Forms.Label();
-			this.lblMotdUsername = new System.Windows.Forms.Label();
-			this.tbMotdUsername = new System.Windows.Forms.TextBox();
+			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.lblIgnorePilots = new System.Windows.Forms.Label();
+			this.lblIgnoreChannels = new System.Windows.Forms.Label();
+			this.tbIgnorePilots = new System.Windows.Forms.TextBox();
+			this.tbIgnoreChannels = new System.Windows.Forms.TextBox();
 			this.panel1.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -73,6 +78,7 @@
 			this.groupBox3.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.nudFontSizeContent)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.nudFontSizeTitle)).BeginInit();
+			this.groupBox4.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// panel1
@@ -84,7 +90,7 @@
 			this.panel1.Controls.Add(this.tbHelp);
 			this.panel1.Controls.Add(this.btnCancel);
 			this.panel1.Controls.Add(this.btnSave);
-			this.panel1.Location = new System.Drawing.Point(-52, 347);
+			this.panel1.Location = new System.Drawing.Point(-52, 424);
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(962, 121);
 			this.panel1.TabIndex = 0;
@@ -382,6 +388,25 @@
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "program settings";
 			// 
+			// tbMotdUsername
+			// 
+			this.tbMotdUsername.Location = new System.Drawing.Point(426, 36);
+			this.tbMotdUsername.Name = "tbMotdUsername";
+			this.tbMotdUsername.Size = new System.Drawing.Size(172, 20);
+			this.tbMotdUsername.TabIndex = 13;
+			// 
+			// lblMotdUsername
+			// 
+			this.lblMotdUsername.AutoSize = true;
+			this.lblMotdUsername.Cursor = System.Windows.Forms.Cursors.Help;
+			this.lblMotdUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblMotdUsername.Location = new System.Drawing.Point(311, 40);
+			this.lblMotdUsername.Name = "lblMotdUsername";
+			this.lblMotdUsername.Size = new System.Drawing.Size(90, 13);
+			this.lblMotdUsername.TabIndex = 12;
+			this.lblMotdUsername.Text = "MOTD Username";
+			this.lblMotdUsername.MouseEnter += new System.EventHandler(this.motdUserName);
+			// 
 			// cbIgnoreOwn
 			// 
 			this.cbIgnoreOwn.AutoSize = true;
@@ -534,24 +559,63 @@
 			this.lblUpdateCheck.Text = "check for updates";
 			this.lblUpdateCheck.MouseEnter += new System.EventHandler(this.lblUpdateCheck_MouseEnter);
 			// 
-			// lblMotdUsername
+			// groupBox4
 			// 
-			this.lblMotdUsername.AutoSize = true;
-			this.lblMotdUsername.Cursor = System.Windows.Forms.Cursors.Help;
-			this.lblMotdUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblMotdUsername.Location = new System.Drawing.Point(311, 40);
-			this.lblMotdUsername.Name = "lblMotdUsername";
-			this.lblMotdUsername.Size = new System.Drawing.Size(90, 13);
-			this.lblMotdUsername.TabIndex = 12;
-			this.lblMotdUsername.Text = "MOTD Username";
-			this.lblMotdUsername.MouseEnter += new System.EventHandler(this.motdUserName);
+			this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox4.Controls.Add(this.tbIgnoreChannels);
+			this.groupBox4.Controls.Add(this.tbIgnorePilots);
+			this.groupBox4.Controls.Add(this.lblIgnoreChannels);
+			this.groupBox4.Controls.Add(this.lblIgnorePilots);
+			this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.groupBox4.Location = new System.Drawing.Point(12, 344);
+			this.groupBox4.Name = "groupBox4";
+			this.groupBox4.Size = new System.Drawing.Size(846, 74);
+			this.groupBox4.TabIndex = 3;
+			this.groupBox4.TabStop = false;
+			this.groupBox4.Text = "Ignorelist";
 			// 
-			// tbMotdUsername
+			// lblIgnorePilots
 			// 
-			this.tbMotdUsername.Location = new System.Drawing.Point(426, 36);
-			this.tbMotdUsername.Name = "tbMotdUsername";
-			this.tbMotdUsername.Size = new System.Drawing.Size(172, 20);
-			this.tbMotdUsername.TabIndex = 13;
+			this.lblIgnorePilots.AutoSize = true;
+			this.lblIgnorePilots.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblIgnorePilots.Location = new System.Drawing.Point(6, 19);
+			this.lblIgnorePilots.Name = "lblIgnorePilots";
+			this.lblIgnorePilots.Size = new System.Drawing.Size(61, 13);
+			this.lblIgnorePilots.TabIndex = 0;
+			this.lblIgnorePilots.Text = "Pilotnames:";
+			this.lblIgnorePilots.MouseEnter += new System.EventHandler(this.lblIgnorePilots_MouseEnter);
+			// 
+			// lblIgnoreChannels
+			// 
+			this.lblIgnoreChannels.AutoSize = true;
+			this.lblIgnoreChannels.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblIgnoreChannels.Location = new System.Drawing.Point(6, 45);
+			this.lblIgnoreChannels.Name = "lblIgnoreChannels";
+			this.lblIgnoreChannels.Size = new System.Drawing.Size(80, 13);
+			this.lblIgnoreChannels.TabIndex = 1;
+			this.lblIgnoreChannels.Text = "Channelnames:";
+			this.lblIgnoreChannels.MouseEnter += new System.EventHandler(this.lblIgnoreChannels_MouseEnter);
+			// 
+			// tbIgnorePilots
+			// 
+			this.tbIgnorePilots.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.tbIgnorePilots.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.tbIgnorePilots.Location = new System.Drawing.Point(105, 16);
+			this.tbIgnorePilots.Name = "tbIgnorePilots";
+			this.tbIgnorePilots.Size = new System.Drawing.Size(735, 20);
+			this.tbIgnorePilots.TabIndex = 8;
+			// 
+			// tbIgnoreChannels
+			// 
+			this.tbIgnoreChannels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.tbIgnoreChannels.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.tbIgnoreChannels.Location = new System.Drawing.Point(105, 42);
+			this.tbIgnoreChannels.Name = "tbIgnoreChannels";
+			this.tbIgnoreChannels.Size = new System.Drawing.Size(735, 20);
+			this.tbIgnoreChannels.TabIndex = 9;
 			// 
 			// Settings
 			// 
@@ -559,7 +623,8 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.Window;
 			this.CancelButton = this.btnCancel;
-			this.ClientSize = new System.Drawing.Size(870, 392);
+			this.ClientSize = new System.Drawing.Size(870, 469);
+			this.Controls.Add(this.groupBox4);
 			this.Controls.Add(this.groupBox3);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
@@ -581,6 +646,8 @@
 			this.groupBox3.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.nudFontSizeContent)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.nudFontSizeTitle)).EndInit();
+			this.groupBox4.ResumeLayout(false);
+			this.groupBox4.PerformLayout();
 			this.ResumeLayout(false);
 
         }
@@ -624,5 +691,10 @@
         private System.Windows.Forms.Label lblIgnoreOwn;
 		private System.Windows.Forms.TextBox tbMotdUsername;
 		private System.Windows.Forms.Label lblMotdUsername;
+		private System.Windows.Forms.GroupBox groupBox4;
+		private System.Windows.Forms.TextBox tbIgnoreChannels;
+		private System.Windows.Forms.TextBox tbIgnorePilots;
+		private System.Windows.Forms.Label lblIgnoreChannels;
+		private System.Windows.Forms.Label lblIgnorePilots;
 	}
 }
