@@ -21,6 +21,6 @@ namespace EveChatNotifier
                 System.IO.File.AppendAllText(logPath, string.Format("{0}: {1}{2}", DateTime.Now.ToString(), text, Environment.NewLine), Encoding.UTF8);
             }
             catch { }
-        }
+        } 
     }
 }
