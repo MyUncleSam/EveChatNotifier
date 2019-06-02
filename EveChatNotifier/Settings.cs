@@ -84,6 +84,7 @@ namespace EveChatNotifier
                 Logging.WriteLine(string.Format("Error getting autostart enabled state:{0}{1}", Environment.NewLine, ex.ToString()));
                 cbAutoStart.Enabled = false;
             }
+            nudAutoStartDelay.Value = Properties.Settings.Default.AutoStartDelayMinutes;
 
             // set font size
             nudFontSizeTitle.Value = Convert.ToDecimal(Properties.Settings.Default.ToastFontSizeTitle);
@@ -242,6 +243,7 @@ namespace EveChatNotifier
 			Properties.Settings.Default.MotdUsername = tbMotdUsername.Text;
 			Properties.Settings.Default.IgnoreChannels = tbIgnoreChannels.Text;
 			Properties.Settings.Default.IgnorePilots = tbIgnorePilots.Text;
+            Properties.Settings.Default.AutoStartDelayMinutes = Convert.ToInt32(nudAutoStartDelay.Value);
 
             NotifyOptions no = (NotifyOptions)cbNotify.SelectedItem;
             switch (no)
@@ -267,6 +269,7 @@ namespace EveChatNotifier
                 try
                 {
                     Autostart.ManageAutostart.Instance.Enabled = cbAutoStart.Checked;
+                    Autostart.ManageAutostart.Instance.ChangeDelay(Properties.Settings.Default.AutoStartDelayMinutes);
                 }
                 catch (Exception ex)
                 {
@@ -284,5 +287,10 @@ namespace EveChatNotifier
 		{
 			tbHelp.Text = string.Format("Here you can specify channelname which are ignored for notification. Please seperate them using ',' - not case sensitive.");
 		}
-	}
+
+        private void LblAutostartDelay_MouseEnter(object sender, EventArgs e)
+        {
+            tbHelp.Text = string.Format("You can add an auto start delay in minutes here (e.g. reduce startup load, wait for network drive, cloud space, ...)");
+        }
+    }
 }

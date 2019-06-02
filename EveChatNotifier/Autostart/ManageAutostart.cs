@@ -84,6 +84,16 @@ namespace EveChatNotifier.Autostart
             }
         }
 
+        public void ChangeDelay(int minutes)
+        {
+            CheckTask();
+
+            // recreate the trigger
+            GetTask.Definition.Triggers.Clear();
+            GetTask.Definition.Triggers.Add(GenerateLogonTrigger(minutes));
+            GetTask.RegisterChanges();
+        }
+
         /// <summary>
         /// registers the startup task (load on logon) for the current user
         /// </summary>
@@ -93,16 +103,25 @@ namespace EveChatNotifier.Autostart
             TaskDefinition td = TaskService.Instance.NewTask();
             td.RegistrationInfo.Description = Description;
             td.Settings.Enabled = false; // not enabled by default
-            
-            LogonTrigger lt = new LogonTrigger();
-            //lt.Delay = new TimeSpan(0, 1, 0);
-            lt.Enabled = true; // action is always enabled, active or not is managed using the task definition
-            lt.Id = ActionIdentifier;
-            lt.UserId = Environment.UserName;
-            td.Triggers.Add(lt);
+            td.Triggers.Add(GenerateLogonTrigger(Properties.Settings.Default.AutoStartDelayMinutes));
 
             td.Actions.Add(Application.ExecutablePath, null, System.IO.Path.GetDirectoryName(Application.ExecutablePath));
             AutostartTask = TaskService.Instance.RootFolder.RegisterTaskDefinition(Description, td);
+        }
+
+        private LogonTrigger GenerateLogonTrigger(int minutes)
+        {
+            LogonTrigger lt = new LogonTrigger();
+            lt.Enabled = true; // action is always enabled, active or not is managed using the task definition
+            lt.Id = ActionIdentifier;
+            lt.UserId = Environment.UserName;
+
+            if (minutes > 0)
+                lt.Delay = new TimeSpan(0, minutes, 0);
+            else
+                lt.Delay = new TimeSpan(0, 0, 0);
+
+            return lt;
         }
 
         /// <summary>
