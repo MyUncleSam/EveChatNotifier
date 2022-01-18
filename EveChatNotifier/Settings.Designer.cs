@@ -69,10 +69,16 @@
             this.cbUpdates = new System.Windows.Forms.CheckBox();
             this.lblUpdateCheck = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.tbIgnoreChannels = new System.Windows.Forms.TextBox();
             this.tbIgnorePilots = new System.Windows.Forms.TextBox();
             this.lblIgnoreChannels = new System.Windows.Forms.Label();
             this.lblIgnorePilots = new System.Windows.Forms.Label();
+            this.tbAlwaysPilots = new System.Windows.Forms.TextBox();
+            this.lblAlwaysPilots = new System.Windows.Forms.Label();
+            this.tbAlwaysChannels = new System.Windows.Forms.TextBox();
+            this.lblAlwaysChannels = new System.Windows.Forms.Label();
+
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -82,6 +88,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudFontSizeContent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudFontSizeTitle)).BeginInit();
             this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -93,7 +100,7 @@
             this.panel1.Controls.Add(this.tbHelp);
             this.panel1.Controls.Add(this.btnCancel);
             this.panel1.Controls.Add(this.btnSave);
-            this.panel1.Location = new System.Drawing.Point(-52, 424);
+            this.panel1.Location = new System.Drawing.Point(-52, 500);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(962, 121);
             this.panel1.TabIndex = 0;
@@ -107,7 +114,7 @@
             this.btnTest.Name = "btnTest";
             this.btnTest.Size = new System.Drawing.Size(91, 23);
             this.btnTest.TabIndex = 1;
-            this.btnTest.Text = "Apply and test";
+            this.btnTest.Text = "Apply & Test";
             this.btnTest.UseVisualStyleBackColor = true;
             this.btnTest.Click += new System.EventHandler(this.btnTestVolume_Click);
             // 
@@ -123,7 +130,7 @@
             this.tbHelp.ReadOnly = true;
             this.tbHelp.Size = new System.Drawing.Size(595, 41);
             this.tbHelp.TabIndex = 0;
-            this.tbHelp.Text = "Hover a settings text to get more information about it.";
+            this.tbHelp.Text = "Hover over a settings text to get more information about it.";
             // 
             // btnCancel
             // 
@@ -165,7 +172,7 @@
             this.groupBox1.Size = new System.Drawing.Size(846, 110);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "move destination";
+            this.groupBox1.Text = "Chat Log File Locations";
             // 
             // folderMoveLogs
             // 
@@ -221,7 +228,7 @@
             this.lblMoveLogs.Name = "lblMoveLogs";
             this.lblMoveLogs.Size = new System.Drawing.Size(72, 13);
             this.lblMoveLogs.TabIndex = 4;
-            this.lblMoveLogs.Text = "move old logs";
+            this.lblMoveLogs.Text = "Backup Log Path";
             this.lblMoveLogs.MouseEnter += new System.EventHandler(this.lblMoveLogs_MouseEnter);
             // 
             // lblLogPath
@@ -233,7 +240,7 @@
             this.lblLogPath.Name = "lblLogPath";
             this.lblLogPath.Size = new System.Drawing.Size(86, 13);
             this.lblLogPath.TabIndex = 2;
-            this.lblLogPath.Text = "program log path";
+            this.lblLogPath.Text = "Program Log Path";
             this.lblLogPath.MouseEnter += new System.EventHandler(this.lblLogFile_MouseEnter);
             // 
             // lblEveChatLogPath
@@ -245,7 +252,7 @@
             this.lblEveChatLogPath.Name = "lblEveChatLogPath";
             this.lblEveChatLogPath.Size = new System.Drawing.Size(92, 13);
             this.lblEveChatLogPath.TabIndex = 0;
-            this.lblEveChatLogPath.Text = "eve chatlogs path";
+            this.lblEveChatLogPath.Text = "Eve's Chatlog Path";
             this.lblEveChatLogPath.MouseEnter += new System.EventHandler(this.lblEveChatLogs_MouseEnter);
             // 
             // groupBox2
@@ -266,7 +273,7 @@
             this.groupBox2.Size = new System.Drawing.Size(846, 138);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "notification";
+            this.groupBox2.Text = "Notifications";
             // 
             // lblVolume
             // 
@@ -276,7 +283,7 @@
             this.lblVolume.Name = "lblVolume";
             this.lblVolume.Size = new System.Drawing.Size(41, 13);
             this.lblVolume.TabIndex = 4;
-            this.lblVolume.Text = "volume";
+            this.lblVolume.Text = "Volume";
             this.lblVolume.MouseEnter += new System.EventHandler(this.lblVolume_MouseEnter);
             // 
             // tbarVolume
@@ -311,7 +318,7 @@
             this.lblSoundFile.Name = "lblSoundFile";
             this.lblSoundFile.Size = new System.Drawing.Size(86, 13);
             this.lblSoundFile.TabIndex = 2;
-            this.lblSoundFile.Text = "sound file to play";
+            this.lblSoundFile.Text = "Audio File";
             this.lblSoundFile.MouseEnter += new System.EventHandler(this.lblSoundFile_MouseEnter);
             // 
             // lblNotifyKeywords
@@ -323,7 +330,7 @@
             this.lblNotifyKeywords.Name = "lblNotifyKeywords";
             this.lblNotifyKeywords.Size = new System.Drawing.Size(80, 13);
             this.lblNotifyKeywords.TabIndex = 6;
-            this.lblNotifyKeywords.Text = "notify keywords";
+            this.lblNotifyKeywords.Text = "Keywords";
             this.lblNotifyKeywords.MouseEnter += new System.EventHandler(this.lblNotifyKeywords_MouseEnter);
             // 
             // fileNotifySound
@@ -349,7 +356,7 @@
             this.lblNotifyOption.Name = "lblNotifyOption";
             this.lblNotifyOption.Size = new System.Drawing.Size(67, 13);
             this.lblNotifyOption.TabIndex = 0;
-            this.lblNotifyOption.Text = "how to notify";
+            this.lblNotifyOption.Text = "Notification Method";
             this.lblNotifyOption.MouseEnter += new System.EventHandler(this.lblNotifyOption_Enter);
             // 
             // cbNotify
@@ -391,7 +398,7 @@
             this.groupBox3.Size = new System.Drawing.Size(846, 66);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "program settings";
+            this.groupBox3.Text = "General Settings";
             // 
             // nudAutoStartDelay
             // 
@@ -414,7 +421,7 @@
             this.lblAutostartDelay.Name = "lblAutostartDelay";
             this.lblAutostartDelay.Size = new System.Drawing.Size(121, 13);
             this.lblAutostartDelay.TabIndex = 4;
-            this.lblAutostartDelay.Text = "autostart delay (minutes)";
+            this.lblAutostartDelay.Text = "Autostart Delay (minutes)";
             this.lblAutostartDelay.MouseEnter += new System.EventHandler(this.LblAutostartDelay_MouseEnter);
             // 
             // tbMotdUsername
@@ -454,7 +461,7 @@
             this.lblIgnoreOwn.Name = "lblIgnoreOwn";
             this.lblIgnoreOwn.Size = new System.Drawing.Size(109, 13);
             this.lblIgnoreOwn.TabIndex = 14;
-            this.lblIgnoreOwn.Text = "ignore own messages";
+            this.lblIgnoreOwn.Text = "Ignore Self";
             this.lblIgnoreOwn.MouseEnter += new System.EventHandler(this.ignoreOwnMessages);
             // 
             // cbIgnoreMotd
@@ -475,7 +482,7 @@
             this.lblIgnoreMotd.Name = "lblIgnoreMotd";
             this.lblIgnoreMotd.Size = new System.Drawing.Size(71, 13);
             this.lblIgnoreMotd.TabIndex = 10;
-            this.lblIgnoreMotd.Text = "ignore MOTD";
+            this.lblIgnoreMotd.Text = "Ignore MOTD";
             this.lblIgnoreMotd.MouseEnter += new System.EventHandler(this.ignoreMotd_MouseEnter);
             // 
             // nudFontSizeContent
@@ -509,7 +516,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(97, 13);
             this.label2.TabIndex = 8;
-            this.label2.Text = "font size (message)";
+            this.label2.Text = "Message Font Size";
             this.label2.MouseEnter += new System.EventHandler(this.fontSize_MouseEnter);
             // 
             // nudFontSizeTitle
@@ -543,7 +550,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 13);
             this.label1.TabIndex = 6;
-            this.label1.Text = "font size (title)";
+            this.label1.Text = "Title Font Size";
             this.label1.MouseEnter += new System.EventHandler(this.fontSize_MouseEnter);
             // 
             // cbAutoStart
@@ -564,7 +571,7 @@
             this.lblAutostart.Name = "lblAutostart";
             this.lblAutostart.Size = new System.Drawing.Size(89, 13);
             this.lblAutostart.TabIndex = 2;
-            this.lblAutostart.Text = "autostart program";
+            this.lblAutostart.Text = "Autostart Program";
             this.lblAutostart.MouseEnter += new System.EventHandler(this.lblAutostart_MouseEnter);
             // 
             // cbUpdates
@@ -585,7 +592,7 @@
             this.lblUpdateCheck.Name = "lblUpdateCheck";
             this.lblUpdateCheck.Size = new System.Drawing.Size(93, 13);
             this.lblUpdateCheck.TabIndex = 0;
-            this.lblUpdateCheck.Text = "check for updates";
+            this.lblUpdateCheck.Text = "Check For Updates";
             this.lblUpdateCheck.MouseEnter += new System.EventHandler(this.lblUpdateCheck_MouseEnter);
             // 
             // groupBox4
@@ -602,7 +609,7 @@
             this.groupBox4.Size = new System.Drawing.Size(846, 74);
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Ignorelist";
+            this.groupBox4.Text = "Ignore list";
             // 
             // tbIgnoreChannels
             // 
@@ -632,7 +639,7 @@
             this.lblIgnoreChannels.Name = "lblIgnoreChannels";
             this.lblIgnoreChannels.Size = new System.Drawing.Size(80, 13);
             this.lblIgnoreChannels.TabIndex = 2;
-            this.lblIgnoreChannels.Text = "Channelnames:";
+            this.lblIgnoreChannels.Text = "Channel Names:";
             this.lblIgnoreChannels.MouseEnter += new System.EventHandler(this.lblIgnoreChannels_MouseEnter);
             // 
             // lblIgnorePilots
@@ -643,8 +650,66 @@
             this.lblIgnorePilots.Name = "lblIgnorePilots";
             this.lblIgnorePilots.Size = new System.Drawing.Size(61, 13);
             this.lblIgnorePilots.TabIndex = 0;
-            this.lblIgnorePilots.Text = "Pilotnames:";
+            this.lblIgnorePilots.Text = "Pilot Names:";
             this.lblIgnorePilots.MouseEnter += new System.EventHandler(this.lblIgnorePilots_MouseEnter);
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Controls.Add(this.tbAlwaysPilots);
+            this.groupBox5.Controls.Add(this.lblAlwaysPilots);
+            this.groupBox5.Controls.Add(this.tbAlwaysChannels);
+            this.groupBox5.Controls.Add(this.lblAlwaysChannels);
+            this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox5.Location = new System.Drawing.Point(12, 425);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(846, 74);
+            this.groupBox5.TabIndex = 3;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Always Notify";
+            // 
+            // lblAlwaysPilots
+            // 
+            this.lblAlwaysPilots.AutoSize = true;
+            this.lblAlwaysPilots.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAlwaysPilots.Location = new System.Drawing.Point(6, 19);
+            this.lblAlwaysPilots.Name = "lblAlwaysPilots";
+            this.lblAlwaysPilots.Size = new System.Drawing.Size(61, 13);
+            this.lblAlwaysPilots.TabIndex = 0;
+            this.lblAlwaysPilots.Text = "Pilot Names:";
+            this.lblAlwaysPilots.MouseEnter += new System.EventHandler(this.lblAlwaysPilots_MouseEnter);
+            // 
+            // tbAlwaysPilots
+            // 
+            this.tbAlwaysPilots.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbAlwaysPilots.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbAlwaysPilots.Location = new System.Drawing.Point(105, 16);
+            this.tbAlwaysPilots.Name = "tbAlwaysPilots";
+            this.tbAlwaysPilots.Size = new System.Drawing.Size(735, 20);
+            this.tbAlwaysPilots.TabIndex = 1;
+            // 
+            // tbAlwaysChannels
+            // 
+            this.tbAlwaysChannels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbAlwaysChannels.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbAlwaysChannels.Location = new System.Drawing.Point(105, 42);
+            this.tbAlwaysChannels.Name = "tbAlwaysChannels";
+            this.tbAlwaysChannels.Size = new System.Drawing.Size(735, 20);
+            this.tbAlwaysChannels.TabIndex = 3;
+            // 
+            // lblAlwaysChannels
+            // 
+            this.lblAlwaysChannels.AutoSize = true;
+            this.lblAlwaysChannels.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAlwaysChannels.Location = new System.Drawing.Point(6, 45);
+            this.lblAlwaysChannels.Name = "lblAlwaysChannels";
+            this.lblAlwaysChannels.Size = new System.Drawing.Size(80, 13);
+            this.lblAlwaysChannels.TabIndex = 2;
+            this.lblAlwaysChannels.Text = "Channel Names:";
+            this.lblAlwaysChannels.MouseEnter += new System.EventHandler(this.lblAlwaysChannels_MouseEnter);
             // 
             // Settings
             // 
@@ -652,7 +717,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(870, 469);
+            this.ClientSize = new System.Drawing.Size(870, 550);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -678,6 +744,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudFontSizeTitle)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -722,10 +790,15 @@
 		private System.Windows.Forms.TextBox tbMotdUsername;
 		private System.Windows.Forms.Label lblMotdUsername;
 		private System.Windows.Forms.GroupBox groupBox4;
-		private System.Windows.Forms.TextBox tbIgnoreChannels;
+		private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.TextBox tbIgnoreChannels;
 		private System.Windows.Forms.TextBox tbIgnorePilots;
-		private System.Windows.Forms.Label lblIgnoreChannels;
+        private System.Windows.Forms.TextBox tbAlwaysPilots;
+        private System.Windows.Forms.TextBox tbAlwaysChannels;
+        private System.Windows.Forms.Label lblIgnoreChannels;
 		private System.Windows.Forms.Label lblIgnorePilots;
+        private System.Windows.Forms.Label lblAlwaysPilots;
+        private System.Windows.Forms.Label lblAlwaysChannels;
         private System.Windows.Forms.NumericUpDown nudAutoStartDelay;
         private System.Windows.Forms.Label lblAutostartDelay;
     }

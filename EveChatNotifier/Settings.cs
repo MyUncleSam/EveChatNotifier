@@ -74,6 +74,10 @@ namespace EveChatNotifier
 			tbIgnoreChannels.Text = Properties.Settings.Default.IgnoreChannels;
 			tbIgnorePilots.Text = Properties.Settings.Default.IgnorePilots;
 
+            // set always pilot and channel
+            tbAlwaysPilots.Text = Properties.Settings.Default.AlwaysPilots;
+            tbAlwaysChannels.Text = Properties.Settings.Default.AlwaysChannels;
+
             // set autostart object
             try
             {
@@ -243,6 +247,8 @@ namespace EveChatNotifier
 			Properties.Settings.Default.MotdUsername = tbMotdUsername.Text;
 			Properties.Settings.Default.IgnoreChannels = tbIgnoreChannels.Text;
 			Properties.Settings.Default.IgnorePilots = tbIgnorePilots.Text;
+            Properties.Settings.Default.AlwaysPilots = tbAlwaysPilots.Text;
+            Properties.Settings.Default.AlwaysChannels = tbAlwaysChannels.Text;
             Properties.Settings.Default.AutoStartDelayMinutes = Convert.ToInt32(nudAutoStartDelay.Value);
 
             NotifyOptions no = (NotifyOptions)cbNotify.SelectedItem;
@@ -287,6 +293,15 @@ namespace EveChatNotifier
 		{
 			tbHelp.Text = string.Format("Here you can specify channelname which are ignored for notification. Please seperate them using ',' - not case sensitive.");
 		}
+        private void lblAlwaysChannels_MouseEnter(object sender, EventArgs e)
+        {
+            tbHelp.Text = string.Format("Here you can specify channelname which are always notified. Please seperate them using ',' - not case sensitive.");
+        }
+
+        private void lblAlwaysPilots_MouseEnter(object sender, EventArgs e)
+        {
+            tbHelp.Text = string.Format("Here you can specify pilotnames (sender) which are always notified. Please seperate them using ',' - not case sensitive.");
+        }
 
         private void LblAutostartDelay_MouseEnter(object sender, EventArgs e)
         {

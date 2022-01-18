@@ -269,22 +269,24 @@ namespace EveChatNotifier
                 {
                     continue;
                 }
-
-				// check if the sender is on the ignore list
-				if(IsIgnoredPilot(le))
-				{
-					continue;
-				}
-
                 // check if sender is "EVE-System" to prevent MOTD notifications
                 if(Properties.Settings.Default.IgnoreMotd && le.Sender.Equals(Properties.Settings.Default.MotdUsername.Trim(), StringComparison.OrdinalIgnoreCase))
                 {
                     continue;
                 }
-
-                // check if notification is needed
+                // check if the sender is on the ignore list
+                if (IsIgnoredPilot(le))
+                {
+                    continue;
+                }
                 bool needsNotify = false;
-                if(le.Text.ToLower().Contains(curLog.LogInfo.PilotName.ToLower()))
+                // check if sender or channel is in always list
+                if (IsAlwaysPilot(le) || IsAlwaysChannel(curLog))
+                {
+                    needsNotify = true;
+                }
+                // check if notification is needed
+                if (le.Text.ToLower().Contains(curLog.LogInfo.PilotName.ToLower()))
                 {
                     needsNotify = true;
                 }
@@ -310,37 +312,68 @@ namespace EveChatNotifier
             }
         }
 
-		/// <summary>
-		/// check if the current logfile is on the ignore list for channels
-		/// </summary>
-		/// <param name="lf"></param>
-		/// <returns></returns>
-		public bool IsIgnoredChannel(LogFile lf)
-		{
-			if(string.IsNullOrWhiteSpace(Properties.Settings.Default.IgnoreChannels))
-			{
-				return false;
-			}
+        /// <summary>
+        /// check if the current logfile is on the ignore list for channels
+        /// </summary>
+        /// <param name="lf"></param>
+        /// <returns></returns>
+        public bool IsIgnoredChannel(LogFile lf)
+        {
+            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.IgnoreChannels))
+            {
+                return false;
+            }
 
-			string[] ignoreChannels = Properties.Settings.Default.IgnoreChannels.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-			return ignoreChannels.Any(a => a.Trim().Equals(lf.LogInfo.ChannelName, StringComparison.OrdinalIgnoreCase));
-		}
+            string[] ignoreChannels = Properties.Settings.Default.IgnoreChannels.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            return ignoreChannels.Any(a => a.Trim().Equals(lf.LogInfo.ChannelName, StringComparison.OrdinalIgnoreCase));
+        }
 
-		/// <summary>
-		/// check if the sender is on the ignore list
-		/// </summary>
-		/// <param name="le"></param>
-		/// <returns></returns>
-		public bool IsIgnoredPilot(LogEntry le)
-		{
-			if(string.IsNullOrWhiteSpace(Properties.Settings.Default.IgnorePilots))
-			{
-				return false;
-			}
+        /// <summary>
+        /// check if the sender is on the ignore list
+        /// </summary>
+        /// <param name="le"></param>
+        /// <returns></returns>
+        public bool IsIgnoredPilot(LogEntry le)
+        {
+            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.IgnorePilots))
+            {
+                return false;
+            }
 
-			string[] ignorePilots = Properties.Settings.Default.IgnorePilots.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-			return ignorePilots.Any(a => a.Trim().Equals(le.Sender.Trim(), StringComparison.OrdinalIgnoreCase));
-		}
+            string[] ignorePilots = Properties.Settings.Default.IgnorePilots.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            return ignorePilots.Any(a => a.Trim().Equals(le.Sender.Trim(), StringComparison.OrdinalIgnoreCase));
+        }
+        /// <summary>
+        /// check if the current logfile is on the Always list for channels
+        /// </summary>
+        /// <param name="lf"></param>
+        /// <returns></returns>
+        public bool IsAlwaysChannel(LogFile lf)
+        {
+            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.AlwaysChannels))
+            {
+                return false;
+            }
+
+            string[] alwaysChannels = Properties.Settings.Default.AlwaysChannels.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            return alwaysChannels.Any(a => a.Trim().Equals(lf.LogInfo.ChannelName, StringComparison.OrdinalIgnoreCase));
+        }
+
+        /// <summary>
+        /// check if the sender is on the always list
+        /// </summary>
+        /// <param name="le"></param>
+        /// <returns></returns>
+        public bool IsAlwaysPilot(LogEntry le)
+        {
+            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.AlwaysPilots))
+            {
+                return false;
+            }
+
+            string[] alwaysPilots = Properties.Settings.Default.AlwaysPilots.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            return alwaysPilots.Any(a => a.Trim().Equals(le.Sender.Trim(), StringComparison.OrdinalIgnoreCase));
+        }
 
         private void notifyIcon_DoubleClick(object sender, EventArgs e)
         {
@@ -403,6 +436,11 @@ namespace EveChatNotifier
             {
                 _Settings.Focus();
             }
+        }
+
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
