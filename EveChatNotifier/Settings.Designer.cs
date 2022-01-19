@@ -93,7 +93,7 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.btnTest);
@@ -120,8 +120,8 @@
             // 
             // tbHelp
             // 
-            this.tbHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.tbHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbHelp.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbHelp.Location = new System.Drawing.Point(56, 3);
@@ -157,7 +157,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.folderMoveLogs);
             this.groupBox1.Controls.Add(this.fileLog);
@@ -176,7 +176,7 @@
             // 
             // folderMoveLogs
             // 
-            this.folderMoveLogs.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.folderMoveLogs.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.folderMoveLogs.Enabled = false;
             this.folderMoveLogs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -188,7 +188,7 @@
             // 
             // fileLog
             // 
-            this.fileLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.fileLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.fileLog.BackColor = System.Drawing.SystemColors.Window;
             this.fileLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -200,7 +200,7 @@
             // 
             // folderEveChatLogs
             // 
-            this.folderEveChatLogs.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.folderEveChatLogs.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.folderEveChatLogs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.folderEveChatLogs.Location = new System.Drawing.Point(104, 19);
@@ -257,7 +257,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.lblVolume);
             this.groupBox2.Controls.Add(this.tbarVolume);
@@ -288,7 +288,7 @@
             // 
             // tbarVolume
             // 
-            this.tbarVolume.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tbarVolume.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbarVolume.AutoSize = false;
             this.tbarVolume.Enabled = false;
@@ -302,7 +302,7 @@
             // 
             // tbNotifyKeywords
             // 
-            this.tbNotifyKeywords.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tbNotifyKeywords.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbNotifyKeywords.Location = new System.Drawing.Point(105, 105);
             this.tbNotifyKeywords.Name = "tbNotifyKeywords";
@@ -335,7 +335,7 @@
             // 
             // fileNotifySound
             // 
-            this.fileNotifySound.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.fileNotifySound.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.fileNotifySound.BackColor = System.Drawing.SystemColors.Window;
             this.fileNotifySound.Enabled = false;
@@ -361,7 +361,7 @@
             // 
             // cbNotify
             // 
-            this.cbNotify.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cbNotify.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbNotify.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbNotify.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -374,7 +374,7 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.nudAutoStartDelay);
             this.groupBox3.Controls.Add(this.lblAutostartDelay);
@@ -597,7 +597,7 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.tbIgnoreChannels);
             this.groupBox4.Controls.Add(this.tbIgnorePilots);
@@ -613,7 +613,7 @@
             // 
             // tbIgnoreChannels
             // 
-            this.tbIgnoreChannels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tbIgnoreChannels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbIgnoreChannels.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbIgnoreChannels.Location = new System.Drawing.Point(105, 42);
@@ -623,7 +623,7 @@
             // 
             // tbIgnorePilots
             // 
-            this.tbIgnorePilots.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tbIgnorePilots.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbIgnorePilots.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbIgnorePilots.Location = new System.Drawing.Point(105, 16);
@@ -787,16 +787,16 @@
         private System.Windows.Forms.Label lblIgnoreMotd;
         private System.Windows.Forms.CheckBox cbIgnoreOwn;
         private System.Windows.Forms.Label lblIgnoreOwn;
-		private System.Windows.Forms.TextBox tbMotdUsername;
-		private System.Windows.Forms.Label lblMotdUsername;
-		private System.Windows.Forms.GroupBox groupBox4;
-		private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.TextBox tbMotdUsername;
+        private System.Windows.Forms.Label lblMotdUsername;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.TextBox tbIgnoreChannels;
-		private System.Windows.Forms.TextBox tbIgnorePilots;
+        private System.Windows.Forms.TextBox tbIgnorePilots;
         private System.Windows.Forms.TextBox tbAlwaysPilots;
         private System.Windows.Forms.TextBox tbAlwaysChannels;
         private System.Windows.Forms.Label lblIgnoreChannels;
-		private System.Windows.Forms.Label lblIgnorePilots;
+        private System.Windows.Forms.Label lblIgnorePilots;
         private System.Windows.Forms.Label lblAlwaysPilots;
         private System.Windows.Forms.Label lblAlwaysChannels;
         private System.Windows.Forms.NumericUpDown nudAutoStartDelay;

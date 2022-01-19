@@ -60,7 +60,7 @@
 
         #endregion
 
-        private System.Windows.Forms.NotifyIcon notifyIcon; 
+        private System.Windows.Forms.NotifyIcon notifyIcon;
     }
 }
 
