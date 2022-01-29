@@ -105,13 +105,16 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="AlwaysPilots" Type="System.String" Scope="User">
-	<Value Profile="(Default)" />
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="AlwaysChannels" Type="System.String" Scope="User">
-	<Value Profile="(Default)" />
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="AutoStartDelayMinutes" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="DeleteLogs" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

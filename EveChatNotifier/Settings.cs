@@ -13,6 +13,7 @@ namespace EveChatNotifier
     public partial class Settings : Form
     {
         private IWavePlayer wp = new WaveOut();
+        private bool initializationFinished = false;
 
         public Settings()
         {
@@ -33,6 +34,9 @@ namespace EveChatNotifier
 
             // set move old logs path
             folderMoveLogs.SelectedFolder = PathHelper.DecryptPath(Properties.Settings.Default.MoveOldLogsPath);
+
+            // set delete logs
+            cbDeleteLogs.Checked = Properties.Settings.Default.DeleteLogs;
 
             // set notify option
             NotifyOptions curOption = NotifyOptions.Toast;
@@ -97,12 +101,19 @@ namespace EveChatNotifier
             // set ignore motd and ignore own messages
             cbIgnoreMotd.Checked = Properties.Settings.Default.IgnoreMotd;
             cbIgnoreOwn.Checked = Properties.Settings.Default.IgnoreOwnMessages;
+
+            initializationFinished = true;
         }
 
         private void cbMoveLog_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox curCb = (CheckBox)sender;
             folderMoveLogs.Enabled = curCb.Checked;
+
+            // disable delete checkbox and uncheck it if move is enabled
+            cbDeleteLogs.Enabled = !curCb.Checked;
+            if (curCb.Checked)
+                cbDeleteLogs.Checked = false;
         }
 
         public enum NotifyOptions
@@ -306,6 +317,34 @@ namespace EveChatNotifier
         private void LblAutostartDelay_MouseEnter(object sender, EventArgs e)
         {
             tbHelp.Text = string.Format("You can add an auto start delay in minutes here (e.g. reduce startup load, wait for network drive, cloud space, ...)");
+        }
+
+        private void lblDeleteLogs_MouseEnter(object sender, EventArgs e)
+        {
+            tbHelp.Text = String.Format("ATTENTION: Enabling this deletes all logfiles in the eve log folder. This cannot be undone so use on your own risk! (This was made to prevent your storage space to be filled with eve logs.{0}(Cannot be enabled with delete.)", Environment.NewLine);
+        }
+
+        private void cbDeleteLogs_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!initializationFinished)
+                return;
+
+            CheckBox curBox = (CheckBox)sender;
+
+            if(curBox.Checked)
+            {
+                if(MessageBox.Show(String.Format("ATTENTION{0}Enabling this deletes all logfiles in the eve log folder.{0}This cannot be undone so use on your own risk!{0}{0}(This was made to prevent your storage space to be filled with eve logs.){0}{0}Do you want to continue enabling it?", Environment.NewLine)
+                    , "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+                {
+                    curBox.Checked = false;
+                    return;
+                }
+            }
+
+            // disable move checkbox if this is enabled
+            cbMoveLog.Enabled = !curBox.Checked;
+            if (curBox.Checked)
+                cbMoveLog.Checked = false;
         }
     }
 }

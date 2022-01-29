@@ -98,6 +98,24 @@ namespace EveChatNotifier
                 }
             }
 
+            // delete old logs
+            if (Properties.Settings.Default.DeleteLogs)
+            {
+                string[] logFIles = System.IO.Directory.GetFiles(PathEveChatLogs, "*.txt", SearchOption.TopDirectoryOnly);
+                foreach (string logFIle in logFIles)
+                {
+                    try
+                    {
+                        System.IO.File.Delete(logFIle);
+                        Logging.WriteLine(string.Format("Deleted old log file '{0}'", logFIle));
+                    }
+                    catch(Exception ex)
+                    {
+                        Logging.WriteLine(string.Format("Unablt to delete old log '{1}':{0}´{1}", Environment.NewLine, logFIle, ex.ToString()));
+                    }
+                }
+            }
+
             Logging.WriteLine("Starting chat notifier.");
 
             InitializeComponent();
