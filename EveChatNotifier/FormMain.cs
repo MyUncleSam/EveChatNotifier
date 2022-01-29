@@ -118,6 +118,8 @@ namespace EveChatNotifier
 
             Logging.WriteLine("Starting chat notifier.");
 
+            this.StartPosition = FormStartPosition.Manual;
+            this.Location = new Point(int.MinValue, int.MinValue);
             InitializeComponent();
 
             // set version information
@@ -137,6 +139,7 @@ namespace EveChatNotifier
             MenuItem cmHomepage = new MenuItem("Homepage");
             MenuItem cmVersion = new MenuItem(string.Format("v{0}", Application.ProductVersion));
             MenuItem cmCheckUpdate = new MenuItem("Check for update");
+            MenuItem cmContributors = new MenuItem("Contributors");
 
             // version
             cmVersion.Enabled = false;
@@ -152,9 +155,15 @@ namespace EveChatNotifier
             cmSettings.Click += CmSettings_Click;
             cm.MenuItems.Add(cmSettings);
 
+            cm.MenuItems.Add("-");
+
             // homepage
             cmHomepage.Click += CmHomepage_Click;
             cm.MenuItems.Add(cmHomepage);
+
+            // made by / contributors
+            cmContributors.Click += CmContributors_Click;
+            cm.MenuItems.Add(cmContributors);
 
             cm.MenuItems.Add("-");
 
@@ -173,6 +182,11 @@ namespace EveChatNotifier
             {
                 Logging.WriteLine(string.Format("Error checking for autostart:{0}{1}", Environment.NewLine, ex.ToString()));
             }
+        }
+
+        private void CmContributors_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/MyUncleSam/EveChatNotifier/graphs/contributors");
         }
 
         private void CmCheckUpdate_Click(object sender, EventArgs e)

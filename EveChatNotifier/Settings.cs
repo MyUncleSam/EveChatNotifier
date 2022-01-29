@@ -322,7 +322,7 @@ namespace EveChatNotifier
 
         private void lblDeleteLogs_MouseEnter(object sender, EventArgs e)
         {
-            tbHelp.Text = String.Format("ATTENTION: Enabling this deletes all logfiles in the eve log folder. This cannot be undone so use on your own risk! (This was made to prevent your storage space to be filled with eve logs.{0}(Cannot be enabled with delete.)", Environment.NewLine);
+            tbHelp.Text = String.Format("ATTENTION:{0}Enabling this deletes all logfiles in the eve log folder. This cannot be undone so use on your own risk! (This was made to prevent your storage space to be filled with eve logs", Environment.NewLine);
         }
 
         private void cbDeleteLogs_CheckedChanged(object sender, EventArgs e)
