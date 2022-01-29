@@ -248,6 +248,7 @@ namespace EveChatNotifier
             Properties.Settings.Default.LogFile = PathHelper.EncryptedPath(fileLog.SelectedFile);
             Properties.Settings.Default.MoveOldLogs = cbMoveLog.Checked;
             Properties.Settings.Default.MoveOldLogsPath = PathHelper.EncryptedPath(folderMoveLogs.SelectedFolder);
+            Properties.Settings.Default.DeleteLogs = cbDeleteLogs.Checked;
             Properties.Settings.Default.NotifyKeywords = tbNotifyKeywords.Text;
             Properties.Settings.Default.SoundVolume = tbarVolume.Value;
             Properties.Settings.Default.CheckForUpdates = cbUpdates.Checked;
