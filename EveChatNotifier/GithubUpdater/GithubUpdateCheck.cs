@@ -39,7 +39,7 @@ namespace EveChatNotifier.Github
 				request.AddUrlSegment("reponame", repoName);
 				request.AddHeader("user-agent", repoName);
 				request.RequestFormat = DataFormat.Json;
-				request.JsonSerializer = new RestSharp.Serializers.JsonSerializer();
+				request.JsonSerializer = new RestSharp.Serialization.Json.JsonSerializer();
 
 				client.ExecuteAsync<GithubUpdater.GithubReleaseRestSharp>(request, (response) =>
 				{

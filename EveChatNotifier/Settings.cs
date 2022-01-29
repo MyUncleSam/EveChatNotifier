@@ -37,22 +37,22 @@ namespace EveChatNotifier
             // set notify option
             NotifyOptions curOption = NotifyOptions.Toast;
 
-            if(Properties.Settings.Default.ShowToast && string.IsNullOrWhiteSpace(Properties.Settings.Default.SoundFilePath))
+            if (Properties.Settings.Default.ShowToast && string.IsNullOrWhiteSpace(Properties.Settings.Default.SoundFilePath))
             {
                 curOption = NotifyOptions.Toast;
             }
-            if(Properties.Settings.Default.ShowToast && !string.IsNullOrWhiteSpace(Properties.Settings.Default.SoundFilePath))
+            if (Properties.Settings.Default.ShowToast && !string.IsNullOrWhiteSpace(Properties.Settings.Default.SoundFilePath))
             {
                 curOption = NotifyOptions.Both;
             }
-            if(!Properties.Settings.Default.ShowToast && !string.IsNullOrWhiteSpace(Properties.Settings.Default.SoundFilePath))
+            if (!Properties.Settings.Default.ShowToast && !string.IsNullOrWhiteSpace(Properties.Settings.Default.SoundFilePath))
             {
                 curOption = NotifyOptions.Sound;
             }
             cbNotify.SelectedItem = curOption;
 
             // sound file to play
-            if(curOption == NotifyOptions.Both || curOption == NotifyOptions.Sound)
+            if (curOption == NotifyOptions.Both || curOption == NotifyOptions.Sound)
             {
                 fileNotifySound.SelectedFile = PathHelper.DecryptPath(Properties.Settings.Default.SoundFilePath);
             }
@@ -67,19 +67,23 @@ namespace EveChatNotifier
             // set update check
             cbUpdates.Checked = Properties.Settings.Default.CheckForUpdates;
 
-			// set motd username
-			tbMotdUsername.Text = Properties.Settings.Default.MotdUsername;
+            // set motd username
+            tbMotdUsername.Text = Properties.Settings.Default.MotdUsername;
 
-			// set ignore pilot and channel
-			tbIgnoreChannels.Text = Properties.Settings.Default.IgnoreChannels;
-			tbIgnorePilots.Text = Properties.Settings.Default.IgnorePilots;
+            // set ignore pilot and channel
+            tbIgnoreChannels.Text = Properties.Settings.Default.IgnoreChannels;
+            tbIgnorePilots.Text = Properties.Settings.Default.IgnorePilots;
+
+            // set always pilot and channel
+            tbAlwaysPilots.Text = Properties.Settings.Default.AlwaysPilots;
+            tbAlwaysChannels.Text = Properties.Settings.Default.AlwaysChannels;
 
             // set autostart object
             try
             {
                 cbAutoStart.Checked = Autostart.ManageAutostart.Instance.Enabled;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logging.WriteLine(string.Format("Error getting autostart enabled state:{0}{1}", Environment.NewLine, ex.ToString()));
                 cbAutoStart.Enabled = false;
@@ -147,7 +151,7 @@ namespace EveChatNotifier
 
         private void fileNotifySound_EnabledChanged(object sender, EventArgs e)
         {
-            if(!fileNotifySound.Enabled)
+            if (!fileNotifySound.Enabled)
             {
                 fileNotifySound.SelectedFile = "";
             }
@@ -213,12 +217,12 @@ namespace EveChatNotifier
             tbHelp.Text = string.Format("This ignores all messages which are sent from the logged in user. This only affects each pilot itselfe.");
         }
 
-		private void motdUserName(object sender, EventArgs e)
-		{
-			tbHelp.Text = string.Format("MOTD can only be detected by username. It should be something like 'EVE-System'. Check the log files to get the correct one.");
-		}
+        private void motdUserName(object sender, EventArgs e)
+        {
+            tbHelp.Text = string.Format("MOTD can only be detected by username. It should be something like 'EVE-System'. Check the log files to get the correct one.");
+        }
 
-		private void btnTestVolume_Click(object sender, EventArgs e)
+        private void btnTestVolume_Click(object sender, EventArgs e)
         {
             SaveChanges();
             Properties.Settings.Default.Reload();
@@ -240,9 +244,11 @@ namespace EveChatNotifier
             Properties.Settings.Default.ToastFontSizeContent = Convert.ToInt32(nudFontSizeContent.Value);
             Properties.Settings.Default.IgnoreMotd = cbIgnoreMotd.Checked;
             Properties.Settings.Default.IgnoreOwnMessages = cbIgnoreOwn.Checked;
-			Properties.Settings.Default.MotdUsername = tbMotdUsername.Text;
-			Properties.Settings.Default.IgnoreChannels = tbIgnoreChannels.Text;
-			Properties.Settings.Default.IgnorePilots = tbIgnorePilots.Text;
+            Properties.Settings.Default.MotdUsername = tbMotdUsername.Text;
+            Properties.Settings.Default.IgnoreChannels = tbIgnoreChannels.Text;
+            Properties.Settings.Default.IgnorePilots = tbIgnorePilots.Text;
+            Properties.Settings.Default.AlwaysPilots = tbAlwaysPilots.Text;
+            Properties.Settings.Default.AlwaysChannels = tbAlwaysChannels.Text;
             Properties.Settings.Default.AutoStartDelayMinutes = Convert.ToInt32(nudAutoStartDelay.Value);
 
             NotifyOptions no = (NotifyOptions)cbNotify.SelectedItem;
@@ -278,15 +284,24 @@ namespace EveChatNotifier
             }
         }
 
-		private void lblIgnorePilots_MouseEnter(object sender, EventArgs e)
-		{
-			tbHelp.Text = string.Format("Here you can specify pilotnames (sender) which are ignored for notification. Please seperate them using ',' - not case sensitive.");
-		}
+        private void lblIgnorePilots_MouseEnter(object sender, EventArgs e)
+        {
+            tbHelp.Text = string.Format("Here you can specify pilotnames (sender) which are ignored for notification. Please seperate them using ',' - not case sensitive.");
+        }
 
-		private void lblIgnoreChannels_MouseEnter(object sender, EventArgs e)
-		{
-			tbHelp.Text = string.Format("Here you can specify channelname which are ignored for notification. Please seperate them using ',' - not case sensitive.");
-		}
+        private void lblIgnoreChannels_MouseEnter(object sender, EventArgs e)
+        {
+            tbHelp.Text = string.Format("Here you can specify channelname which are ignored for notification. Please seperate them using ',' - not case sensitive.");
+        }
+        private void lblAlwaysChannels_MouseEnter(object sender, EventArgs e)
+        {
+            tbHelp.Text = string.Format("Here you can specify channelname which are always notified. Please seperate them using ',' - not case sensitive.");
+        }
+
+        private void lblAlwaysPilots_MouseEnter(object sender, EventArgs e)
+        {
+            tbHelp.Text = string.Format("Here you can specify pilotnames (sender) which are always notified. Please seperate them using ',' - not case sensitive.");
+        }
 
         private void LblAutostartDelay_MouseEnter(object sender, EventArgs e)
         {

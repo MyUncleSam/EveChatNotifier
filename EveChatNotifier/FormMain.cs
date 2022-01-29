@@ -26,7 +26,7 @@ namespace EveChatNotifier
         public FormMain()
         {
             // properties upgrade logic
-            if(Properties.Settings.Default.NeedsUpgrade)
+            if (Properties.Settings.Default.NeedsUpgrade)
             {
                 Properties.Settings.Default.Upgrade();
                 Properties.Settings.Default.NeedsUpgrade = false;
@@ -36,26 +36,26 @@ namespace EveChatNotifier
 
             // bugfix for empty paths
             bool pathFix = false;
-            if(string.IsNullOrWhiteSpace(Properties.Settings.Default.MoveOldLogsPath))
+            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.MoveOldLogsPath))
             {
                 Properties.Settings.Default.MoveOldLogsPath = "%DEFAULT_EVEOLDPATH%";
                 pathFix = true;
             }
-            if(string.IsNullOrWhiteSpace(Properties.Settings.Default.EveChatLogsPath))
+            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.EveChatLogsPath))
             {
                 Properties.Settings.Default.EveChatLogsPath = "%DEFAULT_EVELOGPATH%";
                 pathFix = true;
             }
-            if(pathFix)
+            if (pathFix)
             {
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
             }
 
             // first launch ask for move logs
-            if(!Properties.Settings.Default.AskedToMoveLogs)
+            if (!Properties.Settings.Default.AskedToMoveLogs)
             {
-                if(!Properties.Settings.Default.MoveOldLogs)
+                if (!Properties.Settings.Default.MoveOldLogs)
                 {
                     if (MessageBox.Show(string.Format("Do you want to let the program move your old log files?{0}{0}Moving the log files is a huge performance boost and highly recommended! If you do not move the logs, this program could need a lot of cpu power.{0}{0}This can be enabled/disabled in the settings at any time.", Environment.NewLine), "Activate log moving", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                     {
@@ -76,7 +76,7 @@ namespace EveChatNotifier
             // create old log folder if needed (and move logs)
             if (Properties.Settings.Default.MoveOldLogs)
             {
-                if(!System.IO.Directory.Exists(PathMoveOldLogs))
+                if (!System.IO.Directory.Exists(PathMoveOldLogs))
                 {
                     System.IO.Directory.CreateDirectory(PathMoveOldLogs);
                 }
@@ -190,11 +190,11 @@ namespace EveChatNotifier
             try
             {
                 string[] logFiles = System.IO.Directory.GetFiles(PathEveChatLogs, "*.txt", SearchOption.TopDirectoryOnly);
-                
+
                 // iterate throught all files and generat logfire entries
                 foreach (string curLogFile in logFiles)
                 {
-                    if(_LogFiles.Exists(exist => exist.FilePath == curLogFile))
+                    if (_LogFiles.Exists(exist => exist.FilePath == curLogFile))
                     {
                         continue; // already known log file
                     }
@@ -235,11 +235,11 @@ namespace EveChatNotifier
         {
             LogFile curLog = (LogFile)sender;
 
-			// check for channel ignore list
-			if(IsIgnoredChannel(curLog))
-			{
-				return;
-			}
+            // check for channel ignore list
+            if (IsIgnoredChannel(curLog))
+            {
+                return;
+            }
 
             string logLines = e.NewLogLines;
 
@@ -265,35 +265,37 @@ namespace EveChatNotifier
                 }
 
                 // check if sender is current user (ignore if user wants to ignore this messages)
-                if(Properties.Settings.Default.IgnoreOwnMessages && le.Sender.Equals(curLog.LogInfo.PilotName, StringComparison.OrdinalIgnoreCase))
+                if (Properties.Settings.Default.IgnoreOwnMessages && le.Sender.Equals(curLog.LogInfo.PilotName, StringComparison.OrdinalIgnoreCase))
                 {
                     continue;
                 }
-
-				// check if the sender is on the ignore list
-				if(IsIgnoredPilot(le))
-				{
-					continue;
-				}
-
                 // check if sender is "EVE-System" to prevent MOTD notifications
-                if(Properties.Settings.Default.IgnoreMotd && le.Sender.Equals(Properties.Settings.Default.MotdUsername.Trim(), StringComparison.OrdinalIgnoreCase))
+                if (Properties.Settings.Default.IgnoreMotd && le.Sender.Equals(Properties.Settings.Default.MotdUsername.Trim(), StringComparison.OrdinalIgnoreCase))
                 {
                     continue;
                 }
-
-                // check if notification is needed
+                // check if the sender is on the ignore list
+                if (IsIgnoredPilot(le))
+                {
+                    continue;
+                }
                 bool needsNotify = false;
-                if(le.Text.ToLower().Contains(curLog.LogInfo.PilotName.ToLower()))
+                // check if sender or channel is in always list
+                if (IsAlwaysPilot(le) || IsAlwaysChannel(curLog))
                 {
                     needsNotify = true;
                 }
-                if(!string.IsNullOrWhiteSpace(Properties.Settings.Default.NotifyKeywords))
+                // check if notification is needed
+                if (le.Text.ToLower().Contains(curLog.LogInfo.PilotName.ToLower()))
+                {
+                    needsNotify = true;
+                }
+                if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.NotifyKeywords))
                 {
                     string[] alsoCheck = Properties.Settings.Default.NotifyKeywords.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                     foreach (string toCheck in alsoCheck)
                     {
-                        if(le.Text.ToLower().Contains(toCheck.Trim().ToLower()))
+                        if (le.Text.ToLower().Contains(toCheck.Trim().ToLower()))
                         {
                             needsNotify = true;
                             break;
@@ -310,41 +312,72 @@ namespace EveChatNotifier
             }
         }
 
-		/// <summary>
-		/// check if the current logfile is on the ignore list for channels
-		/// </summary>
-		/// <param name="lf"></param>
-		/// <returns></returns>
-		public bool IsIgnoredChannel(LogFile lf)
-		{
-			if(string.IsNullOrWhiteSpace(Properties.Settings.Default.IgnoreChannels))
-			{
-				return false;
-			}
+        /// <summary>
+        /// check if the current logfile is on the ignore list for channels
+        /// </summary>
+        /// <param name="lf"></param>
+        /// <returns></returns>
+        public bool IsIgnoredChannel(LogFile lf)
+        {
+            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.IgnoreChannels))
+            {
+                return false;
+            }
 
-			string[] ignoreChannels = Properties.Settings.Default.IgnoreChannels.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-			return ignoreChannels.Any(a => a.Trim().Equals(lf.LogInfo.ChannelName, StringComparison.OrdinalIgnoreCase));
-		}
+            string[] ignoreChannels = Properties.Settings.Default.IgnoreChannels.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            return ignoreChannels.Any(a => a.Trim().Equals(lf.LogInfo.ChannelName, StringComparison.OrdinalIgnoreCase));
+        }
 
-		/// <summary>
-		/// check if the sender is on the ignore list
-		/// </summary>
-		/// <param name="le"></param>
-		/// <returns></returns>
-		public bool IsIgnoredPilot(LogEntry le)
-		{
-			if(string.IsNullOrWhiteSpace(Properties.Settings.Default.IgnorePilots))
-			{
-				return false;
-			}
+        /// <summary>
+        /// check if the sender is on the ignore list
+        /// </summary>
+        /// <param name="le"></param>
+        /// <returns></returns>
+        public bool IsIgnoredPilot(LogEntry le)
+        {
+            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.IgnorePilots))
+            {
+                return false;
+            }
 
-			string[] ignorePilots = Properties.Settings.Default.IgnorePilots.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-			return ignorePilots.Any(a => a.Trim().Equals(le.Sender.Trim(), StringComparison.OrdinalIgnoreCase));
-		}
+            string[] ignorePilots = Properties.Settings.Default.IgnorePilots.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            return ignorePilots.Any(a => a.Trim().Equals(le.Sender.Trim(), StringComparison.OrdinalIgnoreCase));
+        }
+        /// <summary>
+        /// check if the current logfile is on the Always list for channels
+        /// </summary>
+        /// <param name="lf"></param>
+        /// <returns></returns>
+        public bool IsAlwaysChannel(LogFile lf)
+        {
+            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.AlwaysChannels))
+            {
+                return false;
+            }
+
+            string[] alwaysChannels = Properties.Settings.Default.AlwaysChannels.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            return alwaysChannels.Any(a => a.Trim().Equals(lf.LogInfo.ChannelName, StringComparison.OrdinalIgnoreCase));
+        }
+
+        /// <summary>
+        /// check if the sender is on the always list
+        /// </summary>
+        /// <param name="le"></param>
+        /// <returns></returns>
+        public bool IsAlwaysPilot(LogEntry le)
+        {
+            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.AlwaysPilots))
+            {
+                return false;
+            }
+
+            string[] alwaysPilots = Properties.Settings.Default.AlwaysPilots.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            return alwaysPilots.Any(a => a.Trim().Equals(le.Sender.Trim(), StringComparison.OrdinalIgnoreCase));
+        }
 
         private void notifyIcon_DoubleClick(object sender, EventArgs e)
         {
-            if(_Settings == null)
+            if (_Settings == null)
             {
                 _Settings = new Settings();
                 _Settings.ShowDialog();
@@ -370,7 +403,7 @@ namespace EveChatNotifier
                 Github.GithubUpdateCheck.UpdateUsingLocalXmlFile("MyUncleSam", "EveChatNotifier");
             }
         }
-        
+
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             Logging.WriteLine("Cleanup ...");
@@ -381,7 +414,7 @@ namespace EveChatNotifier
                     Logging.WriteLine(string.Format("Deleting file '{0}'", file));
                     System.IO.File.Delete(file);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Logging.WriteLine(string.Format("Unable to delete file: {0}", ex.Message));
                 }
@@ -403,6 +436,11 @@ namespace EveChatNotifier
             {
                 _Settings.Focus();
             }
+        }
+
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
